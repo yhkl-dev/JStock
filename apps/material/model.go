@@ -3,7 +3,7 @@ package material
 import "fmt"
 
 type Material struct {
-	Id             int
+	ID             int
 	MaterialNumber string
 	Plant          string
 	MaterialName   string
