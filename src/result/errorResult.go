@@ -1,6 +1,9 @@
 package result
 
-import "fmt"
+import (
+	"fmt"
+	"jstock/src/validators"
+)
 
 type ErrorResult struct {
 	data interface{}
@@ -9,6 +12,7 @@ type ErrorResult struct {
 
 func (s *ErrorResult) Unwrap() interface{} {
 	if s.err != nil {
+		validators.CheckErrors(s.err)
 		panic(s.err.Error())
 	}
 	return s.data

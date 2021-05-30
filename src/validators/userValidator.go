@@ -19,6 +19,7 @@ var VUserName validator.Func = func(f1 validator.FieldLevel) bool {
 }
 
 func (s UserName) toFunc() validator.Func {
+	validatorError["username"] = "用户名为必填项，且必须在4-8位之间"
 	return func(f1 validator.FieldLevel) bool {
 		v, ok := f1.Field().Interface().(string)
 		if ok {

@@ -9,8 +9,10 @@ import (
 )
 
 var jstockValidator *validator.Validate
+var validatorError map[string]string
 
 func init() {
+	validatorError = make(map[string]string)
 	if v, ok := binding.Validator.Engine().(*validator.Validate); ok {
 		jstockValidator = v
 	} else {
@@ -22,5 +24,15 @@ func registerValidation(tag string, fn validator.Func) {
 	err := jstockValidator.RegisterValidation(tag, fn)
 	if err != nil {
 		log.Fatal(fmt.Sprintf("validator %s error", tag))
+	}
+}
+
+func CheckErrors(errors error) {
+	if errs, ok := errors.(validator.ValidationErrors); ok {
+		for _, err := range errs {
+			if v, exist := validatorError[err.Tag()]; exist {
+				panic(v)
+			}
+		}
 	}
 }

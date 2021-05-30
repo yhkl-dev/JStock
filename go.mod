@@ -3,6 +3,7 @@ module jstock
 go 1.14
 
 require (
+	github.com/Masterminds/squirrel v1.5.0
 	github.com/douyu/jupiter v0.2.9
 	github.com/gin-gonic/gin v1.7.2
 	github.com/go-playground/validator/v10 v10.6.1
