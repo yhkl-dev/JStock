@@ -1,13 +1,21 @@
 package main
 
-import "github.com/gin-gonic/gin"
+import (
+	"jstock/src/common"
+	"jstock/src/dbs"
+	"jstock/src/handlers"
+	_ "jstock/src/validators"
+
+	"github.com/gin-gonic/gin"
+)
 
 func main() {
-	r := gin.Default()
-	r.GET("/ping", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "pong",
-		})
-	})
+	dbs.InitDB()
+	r := gin.New()
+
+	r.Use(common.ErrorHandler())
+	r.GET("/users", handlers.UserList)
+	r.GET("/users/:id", handlers.UserDetail)
+	r.POST("/users", handlers.UserSave)
 	r.Run() // listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")
 }
