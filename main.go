@@ -17,5 +17,6 @@ func main() {
 	r.GET("/users", handlers.UserList)
 	r.GET("/users/:id", handlers.UserDetail)
 	r.POST("/users", handlers.UserSave)
+	r.PUT("/users/:id", handlers.UserUpdate)
 	r.Run() // listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")
 }

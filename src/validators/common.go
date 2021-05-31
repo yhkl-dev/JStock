@@ -31,6 +31,7 @@ func CheckErrors(errors error) {
 	if errs, ok := errors.(validator.ValidationErrors); ok {
 		for _, err := range errs {
 			if v, exist := validatorError[err.Tag()]; exist {
+				fmt.Println(v)
 				panic(v)
 			}
 		}
