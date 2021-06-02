@@ -42,3 +42,11 @@ func UserUpdate(c *gin.Context) {
 	u.ID = id.ID
 	Return(c)("success", "10001", setter.UserSetter.UpdateUser(u).Unwrap())(OK)
 }
+
+func UserDelete(c *gin.Context) {
+	id := &struct {
+		ID int `uri:"id" binding:"required"`
+	}{}
+	result.Result(c.ShouldBindUri(id)).Unwrap()
+	Return(c)("success", "10001", setter.UserSetter.DeleteUser(id.ID).Unwrap())(OK)
+}

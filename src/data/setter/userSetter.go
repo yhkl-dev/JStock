@@ -11,6 +11,7 @@ var UserSetter IUserSetter
 type IUserSetter interface {
 	SaveUser(user *userModel.User) *result.ErrorResult
 	UpdateUser(user *userModel.User) *result.ErrorResult
+	DeleteUser(id int) *result.ErrorResult
 }
 
 func init() {
@@ -42,4 +43,9 @@ func (s *UserSetterImp) SaveUser(user *userModel.User) *result.ErrorResult {
 func (s *UserSetterImp) UpdateUser(user *userModel.User) *result.ErrorResult {
 	ret := s.UserMapper.UpdateUser(user).Exec()
 	return result.Result(user, ret.Error)
+}
+
+func (s *UserSetterImp) DeleteUser(id int) *result.ErrorResult {
+	ret := s.UserMapper.DeleteUserByID(id).Exec()
+	return result.Result(ret.RowsAffected, ret.Error)
 }

@@ -1,4 +1,4 @@
-package base
+package basicmodel
 
 import "fmt"
 
@@ -7,10 +7,6 @@ type PurchaseType struct {
 	ID           int
 	PurchaseName string // 1：OTB 2.PRIE 3.CallOFF
 	Comments     string
-}
-
-func (u *PurchaseType) TableName() string {
-	return "purchase_type"
 }
 
 // MaterialGroup 1: Spare part S ; 2.comsumale C ; 3.tool T ; 4.others O
