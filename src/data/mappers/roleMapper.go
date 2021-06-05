@@ -15,7 +15,9 @@ func (s *RoleMapper) AddRole(role *roleModel.Role) *SQLMapper {
 }
 
 func (s *RoleMapper) UpdateRole(role *roleModel.Role) *SQLMapper {
-	return Mapper(squirrel.Update(role.TableName()).Set("role_name", role.RoleName).Set("description", role.Description).Where("id = ?", role.ID).ToSql())
+	return Mapper(squirrel.Update(role.TableName()).
+		Set("role_name", role.RoleName).
+		Set("description", role.Description).Where("id = ?", role.ID).ToSql())
 }
 
 func (s *RoleMapper) GetRoleList() *SQLMapper {
@@ -28,4 +30,8 @@ func (s *RoleMapper) GetRoleDetailByID(id int) *SQLMapper {
 
 func (s *RoleMapper) DeleteRoleByID(id int) *SQLMapper {
 	return Mapper(squirrel.Delete("t_roles").Where("id = ?", id).ToSql())
+}
+
+func (s *RoleMapper) QueryRoleUserById(id int) *SQLMapper {
+	return Mapper(squirrel.Select("id").From("t_user_role_mapping").Where("role_id = ?", id).ToSql())
 }

@@ -1,6 +1,7 @@
 package setter
 
 import (
+	"fmt"
 	"jstock/src/data/mappers"
 	"jstock/src/models/roleModel"
 	"jstock/src/result"
@@ -46,6 +47,18 @@ func (s *RoleSetterImp) UpdateRole(role *roleModel.Role) *result.ErrorResult {
 }
 
 func (s *RoleSetterImp) DeleteRole(id int) *result.ErrorResult {
+	res := s.QueryRoleUsers(id)
+	if res != 0 && res != -1 {
+		return result.Result("", fmt.Errorf(fmt.Sprintf("can not delete role, role %d has been used", res)))
+	}
 	ret := s.RoleMapper.DeleteRoleByID(id).Exec()
 	return result.Result(ret.RowsAffected, ret.Error)
+}
+
+func (s *RoleSetterImp) QueryRoleUsers(id int) int {
+	x := &struct {
+		Id int
+	}{}
+	s.RoleMapper.QueryRoleUserById(id).Query().First(x)
+	return x.Id
 }

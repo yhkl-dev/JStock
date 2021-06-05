@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"fmt"
 	"jstock/src/data/getter"
 	"jstock/src/data/setter"
 	"jstock/src/models/userModel"
@@ -11,11 +12,14 @@ import (
 
 func UserList(c *gin.Context) {
 	Return(c)("success", "10001", getter.UserGetter.GetUserList())(OK)
-	// if user.ID > 10 {
-	// 	Return(c)("userlist", "10001", result.Result(test.GetInfo(user.ID)))(OK)
-	// } else {
-	// 	Return(c)("userlist", "10001", result.Result(test.GetInfo(user.ID)))(Error)
-	// }
+}
+
+func UserLogin(c *gin.Context) {
+	Return(c)("success", "10001", gin.H{"token": "admin-token"})(OK)
+}
+
+func UserInfo(c *gin.Context) {
+	Return(c)("success", "10001", gin.H{"token": "admin-token"})(OK)
 }
 
 func UserDetail(c *gin.Context) {
@@ -29,6 +33,7 @@ func UserDetail(c *gin.Context) {
 func UserSave(c *gin.Context) {
 	u := userModel.New()
 	result.Result(c.ShouldBindJSON(u)).Unwrap()
+	fmt.Println(u)
 	Return(c)("success", "10001", setter.UserSetter.SaveUser(u).Unwrap())(OK)
 }
 

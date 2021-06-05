@@ -17,6 +17,6 @@ func WithUserID(id int) UserAttrFunc {
 
 func WithUserName(username string) UserAttrFunc {
 	return func(u *User) {
-		u.UserName = username
+		u.UserNameZh = username
 	}
 }

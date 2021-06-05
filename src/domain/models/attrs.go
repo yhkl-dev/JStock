@@ -17,12 +17,12 @@ func WithUserID(id int) UserAttrFunc {
 
 func WithUserName(username string) UserAttrFunc {
 	return func(u *User) {
-		u.UserName = username
+		u.UserNameZh = username
 	}
 }
 
 func WithUserPassword(password string) UserAttrFunc {
 	return func(u *User) {
-		u.UserName = password
+		u.UserPassword = password
 	}
 }

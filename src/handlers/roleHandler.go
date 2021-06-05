@@ -32,21 +32,20 @@ func RoleSave(c *gin.Context) {
 	Return(c)("success", "10001", setter.RoleSetter.SaveRole(u).Unwrap())(OK)
 }
 
-// func UserUpdate(c *gin.Context) {
-// 	id := &struct {
-// 		ID int `uri:"id" binding:"required"`
-// 	}{}
-// 	result.Result(c.ShouldBindUri(id)).Unwrap()
-// 	u := userModel.New()
-// 	result.Result(c.ShouldBindJSON(u)).Unwrap()
-// 	u.ID = id.ID
-// 	Return(c)("success", "10001", setter.UserSetter.UpdateUser(u).Unwrap())(OK)
-// }
+func RoleUpdate(c *gin.Context) {
+	id := &struct {
+		ID int `uri:"id" binding:"required"`
+	}{}
+	result.Result(c.ShouldBindUri(id)).Unwrap()
+	r := roleModel.New()
+	result.Result(c.ShouldBindJSON(r)).Unwrap()
+	Return(c)("sucess", "10001", setter.RoleSetter.UpdateRole(r).Unwrap())(OK)
+}
 
-// func UserDelete(c *gin.Context) {
-// 	id := &struct {
-// 		ID int `uri:"id" binding:"required"`
-// 	}{}
-// 	result.Result(c.ShouldBindUri(id)).Unwrap()
-// 	Return(c)("success", "10001", setter.UserSetter.DeleteUser(id.ID).Unwrap())(OK)
-// }
+func RoleDelete(c *gin.Context) {
+	id := &struct {
+		ID int `uri:"id" binding:"required"`
+	}{}
+	result.Result(c.ShouldBindUri(id)).Unwrap()
+	Return(c)("success", "10001", setter.RoleSetter.DeleteRole(id.ID).Unwrap())(OK)
+}
