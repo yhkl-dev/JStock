@@ -26,6 +26,7 @@ func main() {
 	r.GET("/roles", handlers.RoleList)
 	r.DELETE("/roles/:id", handlers.RoleDelete)
 	r.POST("/roles", handlers.RoleSave)
+	r.GET("/purchase_type", handlers.PurChaseTypeList)
 
 	r.Run() // listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")
 }
