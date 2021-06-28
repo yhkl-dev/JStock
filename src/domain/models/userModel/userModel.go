@@ -30,11 +30,9 @@ func (s *UserModelMain) Load() error {
 	return s.Repo.FindByID(s)
 }
 
-func (s *UserModelMain) GetUsetList(userID, userNameZh, userNameEn string, page, pageSize int) ([]UserModelMain, error) {
-	// return s.Repo.GetUsetList(userID, userNameZh, userNameEn, page, pageSize)
-	userList, err := s.Repo.GetUsetList(userID, userNameZh, userNameEn, page, pageSize)
+func (s *UserModelMain) List(userID, userNameZh, userNameEn string) (interface{}, error) {
+	userList, err := s.Repo.UserList(userID, userNameZh, userNameEn)
 	return userList, err
-
 }
 
 func WithRepo(repo repos.IUserModelMain) UserModelMainAttrFunc {

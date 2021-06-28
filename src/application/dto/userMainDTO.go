@@ -12,8 +12,8 @@ type (
 		UserID     string `json:"user_id"`
 		UserNameEn string `json:"user_name_en"`
 		UserNameZh string `json:"user_name_zh"`
-		Page       int    `json:"page"`
-		PageSize   int    `json:"page_size"`
+		// Page       int    `json:"page"`
+		// PageSize   int    `json:"page_size"`
 	}
 )
 

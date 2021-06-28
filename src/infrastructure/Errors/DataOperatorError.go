@@ -12,8 +12,8 @@ type DataOperatorError struct {
 	Message string
 }
 
-func (this *DataOperatorError) Error() string {
-	return this.Message
+func (s *DataOperatorError) Error() string {
+	return s.Message
 }
 func NewDataOperatorError(code int, message string) *DataOperatorError {
 	return &DataOperatorError{Code: code, Message: message}

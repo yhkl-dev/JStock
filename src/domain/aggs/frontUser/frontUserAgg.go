@@ -4,6 +4,7 @@ import (
 	"JStock/src/domain/models/repos"
 	usermodel "JStock/src/domain/models/userModel"
 	"JStock/src/infrastructure/Errors"
+	"fmt"
 )
 
 type FrontUserAgg struct {
@@ -48,7 +49,12 @@ func (s *FrontUserAgg) QueryDetail() error {
 	return nil
 }
 
-func (s *FrontUserAgg) QueryUserList(userID, userNameZh, userNameEn string, page, pageSize int) error {
+func (s *FrontUserAgg) QueryUserList(userMain *usermodel.UserModelMain) (interface{}, error) {
 	// return s.UserMain.Userlist(userID, userNameZh, userNameEn, page, pageSize)
-	return nil
+	res, err := s.UserMain.List(userMain.UserID, userMain.UserInfo.UserNameZh, userMain.UserInfo.UserNameEn)
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println("???", res)
+	return s.UserMain.List(userMain.UserID, userMain.UserInfo.UserNameZh, userMain.UserInfo.UserNameEn)
 }

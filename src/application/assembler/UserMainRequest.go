@@ -15,8 +15,11 @@ func (s *UserMainRequest) D2M_UserMain(dto *dto.UserMainRequest) *usermodel.User
 
 type UserListRequest struct{}
 
-func (s *UserListRequest) D2M_UserList(dto *dto.UserListRequest) *dto.UserListResponse {
-	x := usermodel.New()
-	res, _ := x.GetUsetList(dto.UserID, dto.UserNameZh, dto.UserNameEn, dto.Page, dto.PageSize)
-	return res
+func (s *UserListRequest) D2M_UserList(dto *dto.UserListRequest) *usermodel.UserModelMain {
+	m := usermodel.New()
+	// res, _ := x.GetUsetList(dto.UserID, dto.UserNameZh, dto.UserNameEn, dto.Page, dto.PageSize)
+	m.UserID = dto.UserID
+	m.UserInfo.UserNameEn = dto.UserNameEn
+	m.UserInfo.UserNameZh = dto.UserNameZh
+	return m
 }

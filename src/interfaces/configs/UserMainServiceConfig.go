@@ -16,6 +16,6 @@ func (s *UserMainServiceConfig) UserMainService() *services.UserMainService {
 		AssUserMainReq: &assembler.UserMainRequest{},
 		AssUserMainRsp: &assembler.UserMainResponse{},
 		AssUserListReq: &assembler.UserListRequest{},
-		AssUserListRsp: &assembler.UserMainResponse{},
+		AssUserListRsp: &assembler.UserListResponse{},
 	}
 }

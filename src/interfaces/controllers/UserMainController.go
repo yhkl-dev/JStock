@@ -22,7 +22,8 @@ func (s *UserMainController) UserInfo(ctx *gin.Context) goft.Json {
 }
 
 func (s *UserMainController) UserList(ctx *gin.Context) goft.Json {
-	return s.UserMainSvc.GetUsetList(utils.Exec(ctx.Bind, &dto.UserListRequest{}).Unwrap().(*dto.UserListRequest))
+	return s.UserMainSvc.GetUsetList(utils.Exec(ctx.Bind, &dto.UserListRequest{}).
+		Unwrap().(*dto.UserListRequest))
 }
 
 func (*UserMainController) Name() string {

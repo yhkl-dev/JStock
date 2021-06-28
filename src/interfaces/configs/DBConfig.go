@@ -15,7 +15,8 @@ func NewDBConfig() *DBConfig {
 }
 
 func (c *DBConfig) GormDB() *gorm.DB {
-	dsn := "root:123456@tcp(49.232.252.187:3306)/jstock?charset=utf8mb4&parseTime=True&loc=Local"
+	// dsn := "root:123456@tcp(49.232.252.187:3306)/jstock?charset=utf8mb4&parseTime=True&loc=Local"
+	dsn := "yhkl:123456@tcp(47.94.221.199:3306)/dbdms?charset=utf8mb4&parseTime=True&loc=Local"
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {
 		log.Fatal(err)
