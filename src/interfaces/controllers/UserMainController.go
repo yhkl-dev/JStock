@@ -26,10 +26,21 @@ func (s *UserMainController) UserList(ctx *gin.Context) goft.Json {
 		Unwrap().(*dto.UserListRequest))
 }
 
+func (s *UserMainController) CreateUser(ctx *gin.Context) goft.Json {
+	return s.UserMainSvc.CreateUser(utils.Exec(ctx.ShouldBindJSON, &dto.UserAddRequest{}).Unwrap().(*dto.UserAddRequest))
+}
+
+func (s *UserMainController) UpdateUser(ctx *gin.Context) goft.Json {
+	return s.UserMainSvc.UpdateUser(utils.Exec(ctx.ShouldBindJSON, &dto.UserUpdateRequest{}).Unwrap().(*dto.UserUpdateRequest))
+}
+
 func (*UserMainController) Name() string {
 	return "UserMainController"
 }
 
 func (s *UserMainController) Build(goft *goft.Goft) {
-	goft.Handle("GET", "/user/:id", s.UserInfo).Handle("GET", "/user", s.UserList)
+	goft.Handle("GET", "/user/:id", s.UserInfo).
+		Handle("GET", "/user", s.UserList).
+		Handle("POST", "/user", s.CreateUser).
+		Handle("PUT", "/user", s.UpdateUser)
 }

@@ -15,6 +15,7 @@ type UserModelMain struct {
 	ID       int                  `json:"id" gorm:"column:id"`
 	UserID   string               `json:"user_id" gorm:"user_id"`
 	UserInfo *VUserInfo           `json:"user_info" gorm:"embedded"`
+	CreateAt *VUserCreatAt        `json:"create_at" gorm:"embedded"`
 	Repo     repos.IUserModelMain `gorm:"-"`
 }
 
@@ -30,9 +31,25 @@ func (s *UserModelMain) Load() error {
 	return s.Repo.FindByID(s)
 }
 
-func (s *UserModelMain) List(userID, userNameZh, userNameEn string) (interface{}, error) {
-	userList, err := s.Repo.UserList(userID, userNameZh, userNameEn)
+func (s *UserModelMain) NewUser(user interface{}) error {
+	return s.Repo.New(user.(*UserModelMain))
+}
+
+func (s *UserModelMain) List(userID, userNameZh, userNameEn string, page int, pageSize int) (interface{}, error) {
+	userList, err := s.Repo.UserList(userID, userNameZh, userNameEn, page, pageSize)
 	return userList, err
+}
+
+func (s *UserModelMain) UpdateUser() error {
+	return s.Repo.UpdateUser(s)
+}
+
+func (s *UserModelMain) SetRole(roleID ...int) error {
+	return s.Repo.SetRole(roleID...)
+}
+
+func (s *UserModelMain) GetRole() (interface{}, error) {
+	return s.Repo.GetRole(s)
 }
 
 func WithRepo(repo repos.IUserModelMain) UserModelMainAttrFunc {
@@ -44,6 +61,7 @@ func WithRepo(repo repos.IUserModelMain) UserModelMainAttrFunc {
 func New(attrs ...UserModelMainAttrFunc) *UserModelMain {
 	c := &UserModelMain{
 		UserInfo: NewVUserInfo(),
+		CreateAt: NewVUserCreatAt(),
 	}
 	UserModelMainAttrFuncs(attrs).apply(c)
 	return c

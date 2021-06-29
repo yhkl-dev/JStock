@@ -17,7 +17,7 @@ func (s *UserMainResponse) D2M_UserMainInfo(uagg *frontuser.FrontUserAgg) *dto.U
 	userInfo.UserTelePhone = uagg.UserMain.UserInfo.UserTelePhone
 	userInfo.UserEmail = uagg.UserMain.UserInfo.UserEmail
 	userInfo.Remark = uagg.UserMain.UserInfo.Remark
-	userInfo.CreateAt = uagg.UserMain.UserInfo.CreateAt
+	userInfo.CreateAt = uagg.UserMain.CreateAt.GetFormat()
 	return userInfo
 }
 
@@ -35,8 +35,23 @@ func (s *UserListResponse) D2M_UserListInfo(uagg interface{}) *dto.UserListRespo
 		userInfo.UserTelePhone = user.UserInfo.UserTelePhone
 		userInfo.UserEmail = user.UserInfo.UserEmail
 		userInfo.Remark = user.UserInfo.Remark
-		userInfo.CreateAt = user.UserInfo.CreateAt
+		userInfo.CreateAt = user.CreateAt.GetFormat()
 		userListZ = append(userListZ, *userInfo)
 	}
 	return &userListZ
+}
+
+type UserAddResponse struct{}
+
+func (s *UserAddResponse) D2M_AddUserInfo(uagg *frontuser.FrontUserAgg) *dto.UserAddResponse {
+	userInfo := &dto.UserAddResponse{}
+	userInfo.UserID = uagg.UserMain.UserID
+	userInfo.UserNameEn = uagg.UserMain.UserInfo.UserNameEn
+	userInfo.UserNameZh = uagg.UserMain.UserInfo.UserNameZh
+	userInfo.UserMobilePhone = uagg.UserMain.UserInfo.UserMobilePhone
+	userInfo.UserTelePhone = uagg.UserMain.UserInfo.UserTelePhone
+	userInfo.UserEmail = uagg.UserMain.UserInfo.UserEmail
+	userInfo.Remark = uagg.UserMain.UserInfo.Remark
+	userInfo.CreateAt = uagg.UserMain.CreateAt.CreateAt
+	return userInfo
 }

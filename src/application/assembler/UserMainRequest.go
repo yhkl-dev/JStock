@@ -3,6 +3,8 @@ package assembler
 import (
 	"JStock/src/application/dto"
 	usermodel "JStock/src/domain/models/userModel"
+	"JStock/src/infrastructure/common"
+	"time"
 )
 
 type UserMainRequest struct{}
@@ -17,9 +19,37 @@ type UserListRequest struct{}
 
 func (s *UserListRequest) D2M_UserList(dto *dto.UserListRequest) *usermodel.UserModelMain {
 	m := usermodel.New()
-	// res, _ := x.GetUsetList(dto.UserID, dto.UserNameZh, dto.UserNameEn, dto.Page, dto.PageSize)
 	m.UserID = dto.UserID
 	m.UserInfo.UserNameEn = dto.UserNameEn
 	m.UserInfo.UserNameZh = dto.UserNameZh
+	return m
+}
+
+type UserAddRequest struct{}
+
+func (s *UserAddRequest) D2M_User(dto *dto.UserAddRequest) *usermodel.UserModelMain {
+	m := usermodel.New()
+	m.UserID = dto.UserID
+	m.UserInfo.UserPassword = common.MD5Encrypt(dto.UserPassword)
+	m.UserInfo.UserNameEn = dto.UserNameEn
+	m.UserInfo.UserNameZh = dto.UserNameZh
+	m.UserInfo.UserMobilePhone = dto.UserMobilePhone
+	m.UserInfo.UserTelePhone = dto.UserTelePhone
+	m.UserInfo.UserEmail = dto.UserEmail
+	m.CreateAt.CreateAt = time.Now()
+	return m
+}
+
+type UserUpdateRequest struct{}
+
+func (s *UserUpdateRequest) D2M_User(dto *dto.UserUpdateRequest) *usermodel.UserModelMain {
+	m := usermodel.New()
+	m.ID = dto.ID
+	m.UserInfo.UserPassword = common.MD5Encrypt(dto.UserPassword)
+	m.UserInfo.UserNameEn = dto.UserNameEn
+	m.UserInfo.UserNameZh = dto.UserNameZh
+	m.UserInfo.UserMobilePhone = dto.UserMobilePhone
+	m.UserInfo.UserTelePhone = dto.UserTelePhone
+	m.UserInfo.UserEmail = dto.UserEmail
 	return m
 }
