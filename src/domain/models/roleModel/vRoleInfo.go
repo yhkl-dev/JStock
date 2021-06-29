@@ -22,11 +22,11 @@ func WithDesciption(desciption string) RoleModelMainAttrFunc {
 
 type VRoleInfo struct {
 	RoleName     string    `json:"role_name" gorm:"column:role_name"`
-	Desciption   string    `json:"desciption" gorm:"column:desciption"`
+	Desciption   string    `json:"description" gorm:"column:description"`
 	ParentRoleID int       `json:"parent_role_id" gorm:"column:parent_role_id"`
 	CreateAt     time.Time `json:"create_at" gorm:"column:create_at"`
 }
 
-func NewVUserInfo() *VRoleInfo {
+func NewVRoleInfo() *VRoleInfo {
 	return &VRoleInfo{}
 }

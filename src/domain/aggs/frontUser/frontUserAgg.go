@@ -2,7 +2,6 @@ package frontuser
 
 import (
 	"JStock/src/domain/models/repos"
-	rolemodel "JStock/src/domain/models/roleModel"
 	usermodel "JStock/src/domain/models/userModel"
 	"JStock/src/infrastructure/Errors"
 )
@@ -10,28 +9,28 @@ import (
 type FrontUserAgg struct {
 	UserMain     *usermodel.UserModelMain
 	UserMainRepo repos.IUserModelMain
-	RoleMain     *rolemodel.RoleModelMain
-	RoleMainRepo repos.IRoleModelMain
+	// RoleMain     *rolemodel.RoleModelMain
+	// RoleMainRepo repos.IRoleModelMain
 }
 
-func NewFrontUserAgg(userMain *usermodel.UserModelMain, roleMain *rolemodel.RoleModelMain, userMainRepo repos.IUserModelMain, roleMainRepo repos.IRoleModelMain) *FrontUserAgg {
-	if userMain == nil {
-		panic("Error Root UserMain")
-	}
-	fu := &FrontUserAgg{UserMain: userMain, RoleMain: roleMain, UserMainRepo: userMainRepo, RoleMainRepo: roleMainRepo}
-	fu.RoleMain.Repo = roleMainRepo
-	fu.UserMain.Repo = userMainRepo
-	return fu
-}
-
-// func NewFrontUserAgg(userMain *usermodel.UserModelMain, userMainRepo repos.IUserModelMain) *FrontUserAgg {
+// func NewFrontUserAgg(userMain *usermodel.UserModelMain, roleMain *rolemodel.RoleModelMain, userMainRepo repos.IUserModelMain, roleMainRepo repos.IRoleModelMain) *FrontUserAgg {
 // 	if userMain == nil {
 // 		panic("Error Root UserMain")
 // 	}
-// 	fu := &FrontUserAgg{UserMain: userMain, UserMainRepo: userMainRepo}
+// 	fu := &FrontUserAgg{UserMain: userMain, RoleMain: roleMain, UserMainRepo: userMainRepo, RoleMainRepo: roleMainRepo}
+// 	fu.RoleMain.Repo = roleMainRepo
 // 	fu.UserMain.Repo = userMainRepo
 // 	return fu
 // }
+
+func NewFrontUserAgg(userMain *usermodel.UserModelMain, userMainRepo repos.IUserModelMain) *FrontUserAgg {
+	if userMain == nil {
+		panic("Error Root UserMain")
+	}
+	fu := &FrontUserAgg{UserMain: userMain, UserMainRepo: userMainRepo}
+	fu.UserMain.Repo = userMainRepo
+	return fu
+}
 
 func (s *FrontUserAgg) QueryDetail() error {
 	if s.UserMain.ID <= 0 {

@@ -29,6 +29,14 @@ func (s *RoleModelMain) Load() error {
 	return s.Repo.FindByID(s)
 }
 
+func (s *RoleModelMain) List(roleName string, parentRoleID int, page, pageSize int) (interface{}, error) {
+	return s.Repo.List(roleName, parentRoleID, page, pageSize)
+}
+
+func (s *RoleModelMain) NewRole(role interface{}) error {
+	return s.Repo.NewRole(role.(*RoleModelMain))
+}
+
 func WithRepo(repo repos.IRoleModelMain) RoleModelMainAttrFunc {
 	return func(model *RoleModelMain) {
 		model.Repo = repo
@@ -37,7 +45,7 @@ func WithRepo(repo repos.IRoleModelMain) RoleModelMainAttrFunc {
 
 func New(attrs ...RoleModelMainAttrFunc) *RoleModelMain {
 	c := &RoleModelMain{
-		RoleInfo: NewVUserInfo(),
+		RoleInfo: NewVRoleInfo(),
 	}
 	RoleModelMainAttrFuncs(attrs).apply(c)
 	return c

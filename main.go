@@ -9,7 +9,10 @@ import (
 
 func main() {
 	goft.Ignite().
-		Config(configs.NewDBConfig(), configs.NewUserMainServiceConfig()).
-		Mount("v1", controllers.NewUserMainControllerr()).
+		Config(configs.NewDBConfig(),
+			configs.NewUserMainServiceConfig(),
+			configs.NewRoleMainServiceConfig()).
+		Mount("v1", controllers.NewUserMainControllerr(),
+			controllers.NewRoleMainController()).
 		Launch()
 }
