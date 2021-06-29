@@ -5,6 +5,7 @@ import (
 	"JStock/src/application/dto"
 	frontuser "JStock/src/domain/aggs/frontUser"
 	"JStock/src/infrastructure/GormDao"
+	"fmt"
 
 	"gorm.io/gorm"
 )
@@ -46,7 +47,8 @@ func (s *UserMainService) CreateUser(req *dto.UserAddRequest) *dto.UserAddRespon
 	userAddModel := s.AssUserAddReq.D2M_User(req)
 	repo := GormDao.NewUserMainRepo(s.DB)
 	frontUser := frontuser.NewFrontUserAgg(userAddModel, repo)
-	err := frontUser.CreateUser(userAddModel)
+	id, err := frontUser.CreateUser(userAddModel)
+	fmt.Println(">>>>", id)
 	if err != nil {
 		panic(err.Error())
 	}

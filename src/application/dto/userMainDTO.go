@@ -8,14 +8,15 @@ type (
 	}
 
 	UserAddRequest struct {
-		UserID          string `json:"user_id"`
-		UserPassword    string `json:"user_password"`
-		UserNameZh      string `json:"user_name_zh"`
-		UserNameEn      string `json:"user_name_en"`
-		UserMobilePhone string `json:"user_mobile_phone" `
-		UserTelePhone   string `json:"user_telephone"`
-		UserEmail       string `json:"user_email"`
-		Remark          string `json:"remark"`
+		UserID          string        `json:"user_id"`
+		UserPassword    string        `json:"user_password"`
+		UserNameZh      string        `json:"user_name_zh"`
+		UserNameEn      string        `json:"user_name_en"`
+		UserMobilePhone string        `json:"user_mobile_phone" `
+		UserTelePhone   string        `json:"user_telephone"`
+		UserEmail       string        `json:"user_email"`
+		Remark          string        `json:"remark"`
+		Roles           []interface{} `json:"role_info"`
 	}
 
 	UserUpdateRequest struct {

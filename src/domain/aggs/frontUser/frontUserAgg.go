@@ -7,9 +7,9 @@ import (
 )
 
 type FrontUserAgg struct {
-	UserMain     *usermodel.UserModelMain
-	UserMainRepo repos.IUserModelMain
+	UserMain *usermodel.UserModelMain
 	// RoleMain     *rolemodel.RoleModelMain
+	UserMainRepo repos.IUserModelMain
 	// RoleMainRepo repos.IRoleModelMain
 }
 
@@ -47,7 +47,7 @@ func (s *FrontUserAgg) QueryUserList(userMain *usermodel.UserModelMain, page int
 	return s.UserMain.List(userMain.UserID, userMain.UserInfo.UserNameZh, userMain.UserInfo.UserNameEn, page, pageSize)
 }
 
-func (s *FrontUserAgg) CreateUser(user *usermodel.UserModelMain) error {
+func (s *FrontUserAgg) CreateUser(user *usermodel.UserModelMain) (int, error) {
 	return s.UserMain.NewUser(user)
 }
 

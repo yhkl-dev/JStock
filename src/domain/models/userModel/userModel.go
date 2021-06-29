@@ -16,6 +16,7 @@ type UserModelMain struct {
 	UserID   string               `json:"user_id" gorm:"user_id"`
 	UserInfo *VUserInfo           `json:"user_info" gorm:"embedded"`
 	CreateAt *VUserCreatAt        `json:"create_at" gorm:"embedded"`
+	RoleInfo []interface{}        `gorm:"-"`
 	Repo     repos.IUserModelMain `gorm:"-"`
 }
 
@@ -31,8 +32,10 @@ func (s *UserModelMain) Load() error {
 	return s.Repo.FindByID(s)
 }
 
-func (s *UserModelMain) NewUser(user interface{}) error {
-	return s.Repo.New(user.(*UserModelMain))
+func (s *UserModelMain) NewUser(user interface{}) (int, error) {
+	u := user.(*UserModelMain)
+	err := s.Repo.New(u)
+	return u.ID, err
 }
 
 func (s *UserModelMain) List(userID, userNameZh, userNameEn string, page int, pageSize int) (interface{}, error) {

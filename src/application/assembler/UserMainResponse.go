@@ -44,14 +44,14 @@ func (s *UserListResponse) D2M_UserListInfo(uagg interface{}) *dto.UserListRespo
 type UserAddResponse struct{}
 
 func (s *UserAddResponse) D2M_AddUserInfo(uagg *frontuser.FrontUserAgg) *dto.UserAddResponse {
-	userInfo := &dto.UserAddResponse{}
-	userInfo.UserID = uagg.UserMain.UserID
-	userInfo.UserNameEn = uagg.UserMain.UserInfo.UserNameEn
-	userInfo.UserNameZh = uagg.UserMain.UserInfo.UserNameZh
-	userInfo.UserMobilePhone = uagg.UserMain.UserInfo.UserMobilePhone
-	userInfo.UserTelePhone = uagg.UserMain.UserInfo.UserTelePhone
-	userInfo.UserEmail = uagg.UserMain.UserInfo.UserEmail
-	userInfo.Remark = uagg.UserMain.UserInfo.Remark
-	userInfo.CreateAt = uagg.UserMain.CreateAt.CreateAt
-	return userInfo
+	u := &dto.UserAddResponse{}
+	u.UserID = uagg.UserMain.UserID
+	u.UserNameEn = uagg.UserMain.UserInfo.UserNameEn
+	u.UserNameZh = uagg.UserMain.UserInfo.UserNameZh
+	u.UserMobilePhone = uagg.UserMain.UserInfo.UserMobilePhone
+	u.UserTelePhone = uagg.UserMain.UserInfo.UserTelePhone
+	u.UserEmail = uagg.UserMain.UserInfo.UserEmail
+	u.Remark = uagg.UserMain.UserInfo.Remark
+	u.CreateAt = uagg.UserMain.CreateAt.CreateAt
+	return u
 }
