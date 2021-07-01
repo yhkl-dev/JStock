@@ -1,6 +1,8 @@
 package usermodel
 
-import "JStock/src/domain/models/repos"
+import (
+	"JStock/src/domain/models/repos"
+)
 
 type UserModelMainAttrFunc func(model *UserModelMain)
 type UserModelMainAttrFuncs []UserModelMainAttrFunc
@@ -16,7 +18,7 @@ type UserModelMain struct {
 	UserID   string               `json:"user_id" gorm:"user_id"`
 	UserInfo *VUserInfo           `json:"user_info" gorm:"embedded"`
 	CreateAt *VUserCreatAt        `json:"create_at" gorm:"embedded"`
-	RoleInfo []interface{}        `gorm:"-"`
+	RoleInfo interface{}          `json:"role_info" gorm:"-" `
 	Repo     repos.IUserModelMain `gorm:"-"`
 }
 
@@ -34,8 +36,8 @@ func (s *UserModelMain) Load() error {
 
 func (s *UserModelMain) NewUser(user interface{}) (int, error) {
 	u := user.(*UserModelMain)
-	err := s.Repo.New(u)
-	return u.ID, err
+	id, err := s.Repo.NewUser(u)
+	return id, err
 }
 
 func (s *UserModelMain) List(userID, userNameZh, userNameEn string, page int, pageSize int) (interface{}, error) {

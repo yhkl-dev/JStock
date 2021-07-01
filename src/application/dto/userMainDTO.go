@@ -8,15 +8,15 @@ type (
 	}
 
 	UserAddRequest struct {
-		UserID          string        `json:"user_id"`
-		UserPassword    string        `json:"user_password"`
-		UserNameZh      string        `json:"user_name_zh"`
-		UserNameEn      string        `json:"user_name_en"`
-		UserMobilePhone string        `json:"user_mobile_phone" `
-		UserTelePhone   string        `json:"user_telephone"`
-		UserEmail       string        `json:"user_email"`
-		Remark          string        `json:"remark"`
-		Roles           []interface{} `json:"role_info"`
+		UserID          string `json:"user_id"`
+		UserPassword    string `json:"user_password"`
+		UserNameZh      string `json:"user_name_zh"`
+		UserNameEn      string `json:"user_name_en"`
+		UserMobilePhone string `json:"user_mobile_phone" `
+		UserTelePhone   string `json:"user_telephone"`
+		UserEmail       string `json:"user_email"`
+		Remark          string `json:"remark"`
+		Roles           []int  `json:"role_info"`
 	}
 
 	UserUpdateRequest struct {
@@ -28,6 +28,7 @@ type (
 		UserTelePhone   string `json:"user_telephone"`
 		UserEmail       string `json:"user_email"`
 		Remark          string `json:"remark"`
+		Roles           []int  `json:"role_info"`
 	}
 
 	UserListRequest struct {
@@ -41,19 +42,19 @@ type (
 
 type (
 	UserMainResponse struct {
-		ID              int           `json:"id"`
-		UserID          string        `json:"user_id"`
-		UserNameZh      string        `json:"user_name_zh"`
-		UserNameEn      string        `json:"user_name_en"`
-		UserMobilePhone string        `json:"user_mobile_phone"`
-		UserTelePhone   string        `json:"user_telephone" `
-		UserEmail       string        `json:"user_email" `
-		Remark          string        `json:"remark"`
-		RoleInfos       []interface{} `json:"role_infos"`
-		CreateAt        string        `json:"create_at" `
+		ID              int         `json:"id"`
+		UserID          string      `json:"user_id"`
+		UserNameZh      string      `json:"user_name_zh"`
+		UserNameEn      string      `json:"user_name_en"`
+		UserMobilePhone string      `json:"user_mobile_phone"`
+		UserTelePhone   string      `json:"user_telephone" `
+		UserEmail       string      `json:"user_email" `
+		Remark          string      `json:"remark"`
+		RoleInfo        interface{} `json:"role_info"`
+		CreateAt        string      `json:"create_at" `
 	}
-	UserListResponse []UserMainResponse
-	UserAddResponse  struct {
+
+	UserAddResponse struct {
 		ID              int       `json:"id"`
 		UserID          string    `json:"user_id"`
 		UserNameZh      string    `json:"user_name_zh"`
@@ -64,4 +65,25 @@ type (
 		Remark          string    `json:"remark"`
 		CreateAt        time.Time `json:"create_at" `
 	}
+
+	UserUpdateResponse struct {
+		ID              int         `json:"id"`
+		UserID          string      `json:"user_id"`
+		UserNameZh      string      `json:"user_name_zh"`
+		UserNameEn      string      `json:"user_name_en"`
+		UserMobilePhone string      `json:"user_mobile_phone"`
+		UserTelePhone   string      `json:"user_telephone" `
+		UserEmail       string      `json:"user_email" `
+		Remark          string      `json:"remark"`
+		RoleInfo        interface{} `json:"role_info"`
+		CreateAt        time.Time   `json:"create_at" `
+	}
+	UserRoleMapResponse struct {
+		ID       int    `json:"id"`
+		RoleID   int    `json:"role_id"`
+		RoleName string `json:"roleName"`
+	}
+
+	UserListResponse        []UserMainResponse
+	UserRoleListMapResponse []UserRoleMapResponse
 )

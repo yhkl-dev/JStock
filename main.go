@@ -11,7 +11,8 @@ func main() {
 	goft.Ignite().
 		Config(configs.NewDBConfig(),
 			configs.NewUserMainServiceConfig(),
-			configs.NewRoleMainServiceConfig()).
+			configs.NewRoleMainServiceConfig(),
+			configs.NewUserRoleMapServiceConfig()).
 		Mount("v1", controllers.NewUserMainControllerr(),
 			controllers.NewRoleMainController()).
 		Launch()

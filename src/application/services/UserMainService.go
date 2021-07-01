@@ -4,8 +4,8 @@ import (
 	"JStock/src/application/assembler"
 	"JStock/src/application/dto"
 	frontuser "JStock/src/domain/aggs/frontUser"
+	userRoleMap "JStock/src/domain/models/userRoleMapModel"
 	"JStock/src/infrastructure/GormDao"
-	"fmt"
 
 	"gorm.io/gorm"
 )
@@ -18,14 +18,18 @@ type UserMainService struct {
 	AssUserAddReq    *assembler.UserAddRequest
 	AssUserAddRsp    *assembler.UserAddResponse
 	AssUserUpdateReq *assembler.UserUpdateRequest
-	AssUserUpdateRsp *assembler.UserAddResponse
+	AssUserUpdateRsp *assembler.UserUpdateResponse
 	DB               *gorm.DB `inject:"-"`
 }
 
 func (s *UserMainService) GetUserInfo(req *dto.UserMainRequest) *dto.UserMainResponse {
 	userMainModel := s.AssUserMainReq.D2M_UserMain(req)
+	userRoleMapModel := userRoleMap.New(
+		userRoleMap.WithUserID(userMainModel.ID),
+	)
 	repo := GormDao.NewUserMainRepo(s.DB)
-	frontUser := frontuser.NewFrontUserAgg(userMainModel, repo)
+	repo2 := GormDao.NewUserRoleMapRepo(s.DB)
+	frontUser := frontuser.NewFrontUserAgg(userMainModel, userRoleMapModel, repo, repo2)
 	err := frontUser.QueryDetail()
 	if err != nil {
 		panic(err.Error())
@@ -35,8 +39,11 @@ func (s *UserMainService) GetUserInfo(req *dto.UserMainRequest) *dto.UserMainRes
 
 func (s *UserMainService) GetUsetList(req *dto.UserListRequest) *dto.UserListResponse {
 	userMainModel := s.AssUserListReq.D2M_UserList(req)
+	userRoleMapModel := userRoleMap.New()
 	repo := GormDao.NewUserMainRepo(s.DB)
-	results, err := frontuser.NewFrontUserAgg(userMainModel, repo).QueryUserList(userMainModel, req.Page, req.PageSize)
+	repo2 := GormDao.NewUserRoleMapRepo(s.DB)
+	results, err := frontuser.NewFrontUserAgg(userMainModel, userRoleMapModel, repo, repo2).
+		QueryUserList(userMainModel, req.Page, req.PageSize)
 	if err != nil {
 		panic(err.Error())
 	}
@@ -45,23 +52,28 @@ func (s *UserMainService) GetUsetList(req *dto.UserListRequest) *dto.UserListRes
 
 func (s *UserMainService) CreateUser(req *dto.UserAddRequest) *dto.UserAddResponse {
 	userAddModel := s.AssUserAddReq.D2M_User(req)
+	userRoleMapModel := userRoleMap.New()
 	repo := GormDao.NewUserMainRepo(s.DB)
-	frontUser := frontuser.NewFrontUserAgg(userAddModel, repo)
-	id, err := frontUser.CreateUser(userAddModel)
-	fmt.Println(">>>>", id)
+	repo2 := GormDao.NewUserRoleMapRepo(s.DB)
+	frontUser := frontuser.NewFrontUserAgg(userAddModel, userRoleMapModel, repo, repo2)
+	_, err := frontUser.CreateUser(userAddModel)
 	if err != nil {
 		panic(err.Error())
 	}
 	return s.AssUserAddRsp.D2M_AddUserInfo(frontUser)
 }
 
-func (s *UserMainService) UpdateUser(req *dto.UserUpdateRequest) *dto.UserMainResponse {
+func (s *UserMainService) UpdateUser(req *dto.UserUpdateRequest) *dto.UserUpdateResponse {
 	userUpdateModel := s.AssUserUpdateReq.D2M_User(req)
+	userRoleMapModel := userRoleMap.New(
+		userRoleMap.WithUserID(userUpdateModel.ID),
+	)
 	repo := GormDao.NewUserMainRepo(s.DB)
-	frontUser := frontuser.NewFrontUserAgg(userUpdateModel, repo)
+	repo2 := GormDao.NewUserRoleMapRepo(s.DB)
+	frontUser := frontuser.NewFrontUserAgg(userUpdateModel, userRoleMapModel, repo, repo2)
 	err := frontUser.UpdateUser()
 	if err != nil {
 		panic(err.Error())
 	}
-	return s.AssUserMainRsp.D2M_UserMainInfo(frontUser)
+	return s.AssUserUpdateRsp.D2M_UpdatedUserInfo(frontUser)
 }

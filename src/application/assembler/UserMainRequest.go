@@ -36,7 +36,9 @@ func (s *UserAddRequest) D2M_User(dto *dto.UserAddRequest) *usermodel.UserModelM
 	m.UserInfo.UserMobilePhone = dto.UserMobilePhone
 	m.UserInfo.UserTelePhone = dto.UserTelePhone
 	m.UserInfo.UserEmail = dto.UserEmail
+	m.UserInfo.Remark = dto.Remark
 	m.CreateAt.CreateAt = time.Now()
+	m.RoleInfo = dto.Roles
 	return m
 }
 
@@ -51,5 +53,6 @@ func (s *UserUpdateRequest) D2M_User(dto *dto.UserUpdateRequest) *usermodel.User
 	m.UserInfo.UserMobilePhone = dto.UserMobilePhone
 	m.UserInfo.UserTelePhone = dto.UserTelePhone
 	m.UserInfo.UserEmail = dto.UserEmail
+	m.RoleInfo = dto.Roles
 	return m
 }

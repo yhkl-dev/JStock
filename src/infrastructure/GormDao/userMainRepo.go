@@ -3,6 +3,7 @@ package GormDao
 import (
 	"JStock/src/domain/models/repos"
 	usermodel "JStock/src/domain/models/userModel"
+	userRoleMap "JStock/src/domain/models/userRoleMapModel"
 
 	"github.com/Masterminds/squirrel"
 	"gorm.io/gorm"
@@ -25,7 +26,11 @@ func (s *UserMainRepo) SetRole(roleId ...int) error {
 }
 
 func (s *UserMainRepo) FindByID(model repos.IModel) error {
-	return s.db.Table("t_users").Where("id = ? ", model.(*usermodel.UserModelMain).ID).First(model).Error
+	err := s.db.Table("t_users").Where("id = ? ", model.(*usermodel.UserModelMain).ID).First(model).Error
+	if err != nil {
+		return err
+	}
+	return nil
 }
 
 func (s *UserMainRepo) New(model repos.IModel) error {
@@ -43,12 +48,43 @@ func (s *UserMainRepo) UpdateUser(model repos.IModel) error {
 		"user_email":        m.UserInfo.UserEmail,
 		"remark":            m.UserInfo.Remark,
 	}
-	sql, args, _ := squirrel.Update("t_users").SetMap(updateData).ToSql()
-	return s.db.Raw(sql, args...).Error
+	sql, args, _ := squirrel.Delete("t_user_role_mapping").Where("user_id = ?", m.ID).ToSql()
+	err := s.db.Exec(sql, args...).Error
+	if err != nil {
+		return err
+	}
+	roleInfo := m.RoleInfo.([]int)
+	for _, roleID := range roleInfo {
+
+		sql, args, _ := squirrel.Insert("t_user_role_mapping").Columns("user_id", "role_id").Values(m.ID, roleID).ToSql()
+		err := s.db.Exec(sql, args...).Error
+		if err != nil {
+			panic(err.Error())
+			// return err
+		}
+	}
+	sql, args, _ = squirrel.Update("t_users").SetMap(updateData).ToSql()
+	return s.db.Exec(sql, args...).Error
 }
 
-func (s *UserMainRepo) NewUser(model interface{}) error {
-	return s.db.Table("t_users").Create(model.(*usermodel.UserModelMain)).Error
+func (s *UserMainRepo) NewUser(model interface{}) (int, error) {
+	m := model.(*usermodel.UserModelMain)
+	err := s.db.Table("t_users").Create(m).Error
+	if err != nil {
+		return 0, err
+	}
+	roleInfo := m.RoleInfo.([]int)
+	for _, roleID := range roleInfo {
+		r := userRoleMap.New(
+			userRoleMap.WithRoleID(roleID),
+			userRoleMap.WithUserID(m.ID),
+		)
+		err := s.db.Table("t_user_role_mapping").Create(r).Error
+		if err != nil {
+			return 0, err
+		}
+	}
+	return m.ID, nil
 }
 
 func (s *UserMainRepo) UserList(userID, userNameZh, userNameEn string, page int, pageSize int) (interface{}, error) {
