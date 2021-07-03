@@ -26,11 +26,11 @@ func (s *UserMainRepo) SetRole(roleId ...int) error {
 }
 
 func (s *UserMainRepo) FindByID(model repos.IModel) error {
-	err := s.db.Table("t_users").Where("id = ? ", model.(*usermodel.UserModelMain).ID).First(model).Error
-	if err != nil {
-		return err
-	}
-	return nil
+	return s.db.Table("t_users").Where("id = ? ", model.(*usermodel.UserModelMain).ID).First(model).Error
+}
+
+func (s *UserMainRepo) FindByUserID(model repos.IModel) error {
+	return s.db.Table("t_users").Where("user_id = ?", model.(*usermodel.UserModelMain).UserID).First(model).Error
 }
 
 func (s *UserMainRepo) New(model repos.IModel) error {

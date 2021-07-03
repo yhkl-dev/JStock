@@ -30,3 +30,10 @@ func NewNotFoundDataError(modelName string, err string) *NotFoundError {
 		Message: fmt.Sprintf("Model %s data not found %s", modelName, err),
 	}
 }
+
+func NewPasswordError(modelName string, err string) *NotFoundError {
+	return &NotFoundError{
+		Code:    NotFound_ModelData,
+		Message: fmt.Sprintf("Model %s data not found %s", modelName, err),
+	}
+}

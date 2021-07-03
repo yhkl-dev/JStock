@@ -6,6 +6,7 @@ import (
 	frontuser "JStock/src/domain/aggs/frontUser"
 	userRoleMap "JStock/src/domain/models/userRoleMapModel"
 	"JStock/src/infrastructure/GormDao"
+	"JStock/src/interfaces/utils"
 
 	"gorm.io/gorm"
 )
@@ -19,7 +20,24 @@ type UserMainService struct {
 	AssUserAddRsp    *assembler.UserAddResponse
 	AssUserUpdateReq *assembler.UserUpdateRequest
 	AssUserUpdateRsp *assembler.UserUpdateResponse
+	AssUserLoginReq  *assembler.UserLoginRequest
+	AssUserLoginRsp  *assembler.UserLoginResponse
 	DB               *gorm.DB `inject:"-"`
+}
+
+func (s *UserMainService) Login(req *dto.UserLoginRequest) *dto.UserLoginResponse {
+	user := s.AssUserLoginReq.D2M_User(req)
+	role := userRoleMap.New()
+	repo := GormDao.NewUserMainRepo(s.DB)
+	repo2 := GormDao.NewUserRoleMapRepo(s.DB)
+	frontUser := frontuser.NewFrontUserAgg(user, role, repo, repo2)
+	err := frontUser.LoginFunc(req.Password)
+	if err != nil {
+		return s.AssUserLoginRsp.D2M_UserInfo(frontUser, "", err)
+	}
+
+	token, err := utils.GenerateToken(frontUser.UserMain.UserID)
+	return s.AssUserLoginRsp.D2M_UserInfo(frontUser, token, err)
 }
 
 func (s *UserMainService) GetUserInfo(req *dto.UserMainRequest) *dto.UserMainResponse {

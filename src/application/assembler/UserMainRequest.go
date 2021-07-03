@@ -25,6 +25,15 @@ func (s *UserListRequest) D2M_UserList(dto *dto.UserListRequest) *usermodel.User
 	return m
 }
 
+type UserLoginRequest struct{}
+
+func (s *UserLoginRequest) D2M_User(dto *dto.UserLoginRequest) *usermodel.UserModelMain {
+	m := usermodel.New()
+	m.UserID = dto.UserId
+	m.UserInfo.UserPassword = dto.Password
+	return m
+}
+
 type UserAddRequest struct{}
 
 func (s *UserAddRequest) D2M_User(dto *dto.UserAddRequest) *usermodel.UserModelMain {

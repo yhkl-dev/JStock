@@ -1,6 +1,7 @@
 package main
 
 import (
+	"JStock/src/infrastructure/midwares/jwtauth"
 	"JStock/src/interfaces/configs"
 	"JStock/src/interfaces/controllers"
 
@@ -8,7 +9,7 @@ import (
 )
 
 func main() {
-	goft.Ignite().
+	goft.Ignite().Attach(jwtauth.NewTokenCheck()).
 		Config(configs.NewDBConfig(),
 			configs.NewUserMainServiceConfig(),
 			configs.NewRoleMainServiceConfig(),

@@ -5,6 +5,8 @@ import (
 	usermodel "JStock/src/domain/models/userModel"
 	userRoleMap "JStock/src/domain/models/userRoleMapModel"
 	"JStock/src/infrastructure/Errors"
+	"JStock/src/interfaces/utils"
+	"errors"
 )
 
 type FrontUserAgg struct {
@@ -82,5 +84,21 @@ func (s *FrontUserAgg) UpdateUser() error {
 	if err != nil {
 		return Errors.NewNotFoundDataError("UserMain", err.Error())
 	}
+	return nil
+}
+
+func (s *FrontUserAgg) LoginFunc(pass string) error {
+	err := s.UserMain.LoadUserID()
+	if err != nil {
+		return Errors.NewNotFoundDataError("UserMain", err.Error())
+	}
+	if s.UserMain.UserInfo.UserPassword != utils.Md5(pass) {
+		return errors.New("password error")
+	}
+	results, err := s.UserRoleMap.List(s.UserMain.ID)
+	if err != nil {
+		return Errors.NewNotFoundDataError("UserRoleMap", err.Error())
+	}
+	s.UserMain.RoleInfo = results
 	return nil
 }

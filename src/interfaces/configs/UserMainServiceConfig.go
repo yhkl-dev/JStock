@@ -13,11 +13,13 @@ func NewUserMainServiceConfig() *UserMainServiceConfig {
 
 func (s *UserMainServiceConfig) UserMainService() *services.UserMainService {
 	return &services.UserMainService{
-		AssUserMainReq: &assembler.UserMainRequest{},
-		AssUserMainRsp: &assembler.UserMainResponse{},
-		AssUserListReq: &assembler.UserListRequest{},
-		AssUserListRsp: &assembler.UserListResponse{},
-		AssUserAddReq:  &assembler.UserAddRequest{},
-		AssUserAddRsp:  &assembler.UserAddResponse{},
+		AssUserMainReq:  &assembler.UserMainRequest{},
+		AssUserMainRsp:  &assembler.UserMainResponse{},
+		AssUserListReq:  &assembler.UserListRequest{},
+		AssUserListRsp:  &assembler.UserListResponse{},
+		AssUserAddReq:   &assembler.UserAddRequest{},
+		AssUserAddRsp:   &assembler.UserAddResponse{},
+		AssUserLoginReq: &assembler.UserLoginRequest{},
+		AssUserLoginRsp: &assembler.UserLoginResponse{},
 	}
 }

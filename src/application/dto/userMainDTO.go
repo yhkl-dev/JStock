@@ -7,6 +7,11 @@ type (
 		ID int `uri:"id" binding:"required"`
 	}
 
+	UserLoginRequest struct {
+		UserId   string `json:"user_id"`
+		Password string `json:"password"`
+	}
+
 	UserAddRequest struct {
 		UserID          string `json:"user_id"`
 		UserPassword    string `json:"user_password"`
@@ -41,6 +46,12 @@ type (
 )
 
 type (
+	UserLoginResponse struct {
+		Token    string           `json:"token"`
+		UserInfo UserMainResponse `json:"user_info"`
+		Error    string           `json:"error"`
+	}
+
 	UserMainResponse struct {
 		ID              int         `json:"id"`
 		UserID          string      `json:"user_id"`

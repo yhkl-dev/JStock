@@ -34,6 +34,10 @@ func (s *UserModelMain) Load() error {
 	return s.Repo.FindByID(s)
 }
 
+func (s *UserModelMain) LoadUserID() error {
+	return s.Repo.FindByUserID(s)
+}
+
 func (s *UserModelMain) NewUser(user interface{}) (int, error) {
 	u := user.(*UserModelMain)
 	id, err := s.Repo.NewUser(u)

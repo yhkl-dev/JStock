@@ -2,6 +2,7 @@ package repos
 
 type IUserModelMain interface {
 	FindByID(IModel) error
+	FindByUserID(IModel) error
 	New(IModel) error
 	NewUser(user interface{}) (int, error)
 	UpdateUser(IModel) error

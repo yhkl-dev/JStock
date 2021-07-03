@@ -104,3 +104,26 @@ func (s *UserUpdateResponse) D2M_UpdatedUserInfo(uagg *frontuser.FrontUserAgg) *
 	u.RoleInfo = uagg.UserMain.RoleInfo
 	return u
 }
+
+type UserLoginResponse struct{}
+
+func (s *UserLoginResponse) D2M_UserInfo(uagg *frontuser.FrontUserAgg, token string, err error) *dto.UserLoginResponse {
+	u := &dto.UserLoginResponse{}
+	if err != nil {
+		u.Error = err.Error()
+		return u
+	}
+	u.Token = token
+	u.UserInfo.ID = uagg.UserMain.ID
+	u.UserInfo.UserID = uagg.UserMain.UserID
+	u.UserInfo.UserNameEn = uagg.UserMain.UserInfo.UserNameEn
+	u.UserInfo.UserNameZh = uagg.UserMain.UserInfo.UserNameZh
+	u.UserInfo.UserMobilePhone = uagg.UserMain.UserInfo.UserMobilePhone
+	u.UserInfo.UserTelePhone = uagg.UserMain.UserInfo.UserTelePhone
+	u.UserInfo.UserEmail = uagg.UserMain.UserInfo.UserEmail
+	u.UserInfo.Remark = uagg.UserMain.UserInfo.Remark
+	u.UserInfo.CreateAt = uagg.UserMain.CreateAt.CreateAt.Format("2006-01-02 15:04:05")
+	u.UserInfo.RoleInfo = uagg.UserMain.RoleInfo
+	u.Error = err.Error()
+	return u
+}
