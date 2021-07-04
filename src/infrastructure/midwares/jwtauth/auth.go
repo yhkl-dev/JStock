@@ -2,7 +2,6 @@ package jwtauth
 
 import (
 	"JStock/src/interfaces/utils"
-	"fmt"
 
 	"github.com/gin-gonic/gin"
 	"github.com/shenyisyn/goft-gin/goft"
@@ -21,8 +20,7 @@ func (s *TokenCheck) OnRequest(ctx *gin.Context) error {
 	}
 	token := ctx.Request.Header.Get("authoritaion")
 	j := utils.NewJWT()
-	claims, err := j.ResolveToken(token)
-	fmt.Println(claims)
+	_, err := j.ResolveToken(token)
 	if err != nil {
 		goft.Throw("authorized error", 503, ctx)
 	}

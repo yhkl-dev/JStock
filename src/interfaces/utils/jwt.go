@@ -95,6 +95,24 @@ func (j *JWT) RefreshToken(tokenString string) (string, error) {
 	return "", errTokenInvalid
 }
 
+func (j *JWT) DeleteToken(tokenString string) error {
+	jwt.TimeFunc = func() time.Time {
+		return time.Unix(0, 0)
+	}
+	token, err := jwt.ParseWithClaims(tokenString, &CustomClaims{}, func(token *jwt.Token) (interface{}, error) {
+		return j.SigningKey, nil
+	})
+	if err != nil {
+		return err
+	}
+	if claims, ok := token.Claims.(*CustomClaims); ok && token.Valid {
+		jwt.TimeFunc = time.Now
+		claims.StandardClaims.ExpiresAt = time.Now().Unix()
+		return nil
+	}
+	return nil
+}
+
 func GenerateToken(userID string) (string, error) {
 	j := NewJWT()
 	claims := CustomClaims{

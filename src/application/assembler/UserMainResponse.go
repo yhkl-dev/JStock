@@ -124,6 +124,6 @@ func (s *UserLoginResponse) D2M_UserInfo(uagg *frontuser.FrontUserAgg, token str
 	u.UserInfo.Remark = uagg.UserMain.UserInfo.Remark
 	u.UserInfo.CreateAt = uagg.UserMain.CreateAt.CreateAt.Format("2006-01-02 15:04:05")
 	u.UserInfo.RoleInfo = uagg.UserMain.RoleInfo
-	u.Error = err.Error()
+	u.Error = ""
 	return u
 }
