@@ -7,7 +7,6 @@ type VMaterialInfo struct {
 	ManufacturerName           string `json:"manufacturer_name" gorm:"column:manufacturer_name"`
 	ManufacturerPartNumber     string `json:"manufacturer_part_number" gorm:"column:manufacturer_part_number"`
 	ManufacturerModel          string `json:"manufacturer_model" gorm:"column:manufacturer_model"`
-	SupplierName               string `json:"supplier_name" gorm:"column:supplier_name"`
 	Unit                       string `json:"unit" gorm:"column:unit"`
 	Calibration                string `json:"calibration" gorm:"column:calibration"`
 	Repairable                 string `json:"repairable" gorm:"column:repairable"`
@@ -22,15 +21,16 @@ type VMaterialInfo struct {
 	ManufacturePNOld2          string `json:"manufacture_pn_old2" gorm:"column:manufacture_pn_old2"`
 	Dimension                  string `json:"dimension" gorm:"column:dimension"`
 	MaterialSpecialTreatment   string `json:"material_special_treatment" gorm:"column:material_special_treatment"`
-	SurplusPoint               string `json:"surplus_point" gorm:"column:surplus_point"`
-	InstallQty                 string `json:"install_qty" gorm:"column:install_qty"`
 	MPRemark                   string `json:"mpr_remark" gorm:"column:mpr_remark" ` // material planner remark
 	TechRemark                 string `json:"tech_remark" gorm:"column:tech_remark"`
-
-	ImportancyLevel int   `json:"importancy_level_id" gorm:"column:importancy_level_id"`
-	TechCodes       []int `json:"tech_codes" gorm:"-"`
-	RespInfo        []int `json:"resp_info" gorm:"-"`
-	MaterialGroup   int   `json:"material_group"`
+	ImportancyLevel            int    `json:"importancy_level_id" gorm:"column:importancy_level_id"`
+	RespInfo                   []int  `json:"resp_info" gorm:"-"`
+	MaterialGroup              int    `json:"material_group"`
+	SupplierName               string `json:"supplier_name" gorm:"column:supplier_name"` // 不同工厂之间的供应商可能不同
+	SurplusPoint               string `json:"surplus_point" gorm:"column:surplus_point"`
+	InstallQty                 string `json:"install_qty" gorm:"column:install_qty"`
+	Plant                      string `json:"plant_id" gorm:"column:plant_id"`
+	PlantTechCode              []int  `json:"plant_tech_code" gorm:"column:plant_tech_code"`
 }
 
 func NewVMaterialInfo() *VMaterialInfo {
