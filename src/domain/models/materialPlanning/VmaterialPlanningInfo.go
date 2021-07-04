@@ -39,3 +39,7 @@ type VPlanningInfo struct {
 	PartSpecialTreatment   string  `json:"part_special_treatment" gorm:"column:part_special_treatment"`   // 零件特殊处理
 	SurplusStock           int     `json:"surplus_stock" gorm:"column:surplus_stock"`                     // 剩余库存
 }
+
+func NewVPlanningInfo() *VPlanningInfo {
+	return &VPlanningInfo{}
+}
