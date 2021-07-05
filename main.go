@@ -13,8 +13,12 @@ func main() {
 		Config(configs.NewDBConfig(),
 			configs.NewUserMainServiceConfig(),
 			configs.NewRoleMainServiceConfig(),
-			configs.NewUserRoleMapServiceConfig()).
+			configs.NewUserRoleMapServiceConfig(),
+			configs.NewFlowItemTemplateServiceConfig(),
+			configs.NewFlowTemplateServiceConfig()).
 		Mount("v1", controllers.NewUserMainControllerr(),
+			controllers.NewItemTemplateMainController(),
+			controllers.NewWorkFlowTemplateMainController(),
 			controllers.NewRoleMainController()).
 		Launch()
 }

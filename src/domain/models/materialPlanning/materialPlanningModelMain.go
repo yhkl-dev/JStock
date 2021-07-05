@@ -19,16 +19,21 @@ const (
 	MRHConfirmed    = 5
 	STRConfirming   = 6
 	STRConfirmed    = 7
-	OTBCollection   = 8
-	PRProcessing    = 9
-	OrderCreating   = 10
-	OrderConfirming = 11
-	OrderConfirmed  = 12
-	Producing       = 13
-	Delivery        = 14
-	GoodsReady      = 15
-	Invoice         = 16
+	STRBalanced     = 8
+	STRFinished     = 9
+	OTBCollection   = 10
+	PRProcessing    = 11
+	OrderCreating   = 12
+	OrderConfirming = 13
+	OrderConfirmed  = 14
+	Producing       = 15
+	Delivery        = 16
+	GoodsReady      = 17
+	GoodsReceived   = 18
+	Invoice         = 19
 )
+
+
 
 type MaterialPlanningModelMain struct {
 	ID           int                              `json:"id" gorm:"column:id"`

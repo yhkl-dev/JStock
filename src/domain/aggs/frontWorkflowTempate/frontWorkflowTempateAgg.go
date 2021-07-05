@@ -38,3 +38,23 @@ func (s *FrontWorkFlowTemplateAgg) QueryDetail() error {
 	s.WorkFlowTempateMain.FlowItems = results
 	return nil
 }
+
+func (s *FrontWorkFlowTemplateAgg) CreateFlowTemplate(m *workflowtemplate.WorkFlowTemplate) error {
+	return s.WorkFlowTempateMain.New()
+}
+
+func (s *FrontWorkFlowTemplateAgg) ListFlowTemplate(m *workflowtemplate.WorkFlowTemplate, page, pageSize int) (interface{}, error) {
+	results, err := s.WorkFlowTempateMain.ListTemplate(m.FlowName, m.FlowType, page, pageSize)
+	if err != nil {
+		return nil, err
+	}
+	for _, m := range results.([]*workflowtemplate.WorkFlowTemplate) {
+
+		res, err := s.WorkFlowItemTemplateMain.List(m.ID)
+		if err != nil {
+			return nil, Errors.NewNotFoundDataError("UserRoleMap", err.Error())
+		}
+		m.FlowItems = res
+	}
+	return results, nil
+}

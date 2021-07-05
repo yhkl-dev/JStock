@@ -37,10 +37,12 @@ func (s *WorkFlowTemplate) Load() error {
 	return s.Repo.FindByID(s)
 }
 
-func (s *WorkFlowTemplate) NewWorkFlowTemplte(item interface{}) (int, error) {
-	u := item.(*WorkFlowTemplate)
-	id, err := s.Repo.NewWorkFlowTemplte(u)
-	return id, err
+func (s *WorkFlowTemplate) NewWorkFlowTemplte(model repos.IModel) error {
+	return s.Repo.NewWorkFlowTemplte(model)
+}
+
+func (s *WorkFlowTemplate) ListTemplate(flowName string, flowtype, page, pageSize int) (interface{}, error) {
+	return s.Repo.ListTemplate(flowName, flowtype, page, pageSize)
 }
 
 type WorkFlowItemTempateAttrFunc func(model *WorkFlowItemTemplate)
@@ -67,6 +69,8 @@ type WorkFlowItemTemplate struct {
 	RoleID       int                              `json:"role_id" gorm:"column:role_id"`
 	RoleName     string                           `json:"role_name" gorm:"column:role_name"`
 	Repo         repos.IWorkFlowItemTemplateModel `gorm:"-"`
+	// NextRoleID   int                              `json:"next_role_id" gorm:"column:next_role_id"`
+	// NextRoleName string                           `json:"next_role_name" gorm:"column:next_role_name"`
 }
 
 func (*WorkFlowItemTemplate) Name() string {

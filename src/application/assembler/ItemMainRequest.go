@@ -15,3 +15,4 @@ func (s *ItemMainRequest) D2M_ItemMain(dto *dto.ItemAddRequest) *workflowtemplat
 	m.TemplateID = dto.TemplateID
 	return m
 }
+

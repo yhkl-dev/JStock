@@ -11,7 +11,8 @@ type IWorkFlowModel interface {
 type IWorkFlowTemplateModel interface {
 	New(IModel) error
 	FindByID(IModel) error
-	NewWorkFlowTemplte(item interface{}) (int, error)
+	NewWorkFlowTemplte(IModel) error
+	ListTemplate(flowName string, flowtype, page, pageSize int) (interface{}, error)
 }
 
 type IWorkFlowItemTemplateModel interface {

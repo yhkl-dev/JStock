@@ -25,5 +25,5 @@ func (*ItemTemplateMainController) Name() string {
 	return "ItemTemplateMainController"
 }
 func (s *ItemTemplateMainController) Build(goft *goft.Goft) {
-	goft.Handle("POST", "/workflow/item", s.CreateItem)
+	goft.Handle("POST", "/workflow/flowtemplate/item", s.CreateItem)
 }

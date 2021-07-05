@@ -16,4 +16,11 @@ type (
 		ExecOrder    int    `json:"exec_order"`
 		RoleName     string `json:"role_name"`
 	}
+	ItemMainResponse struct {
+		TemplateName string `json:"template_name"`
+		ItemName     string `json:"item_name"`
+		ExecOrder    int    `json:"exec_order"`
+		RoleName     string `json:"role_name"`
+	}
+	ItemListResponse []ItemMainResponse
 )

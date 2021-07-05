@@ -5,6 +5,7 @@ import (
 	rolemodel "JStock/src/domain/models/roleModel"
 	workflowtemplate "JStock/src/domain/models/workFlowTemplate"
 
+	"github.com/Masterminds/squirrel"
 	"gorm.io/gorm"
 )
 
@@ -17,7 +18,12 @@ func NewItemMainRepo(db *gorm.DB) *ItemMainRepo {
 }
 
 func (s *ItemMainRepo) New(model repos.IModel) error {
-	err := s.db.Table("t_workflow_item_template").Create(model).Error
+	m := model.(*workflowtemplate.WorkFlowItemTemplate)
+	sql, args, _ := squirrel.Insert("t_workflow_item_template").
+		Columns("template_id", "item_name", "exec_order", "role_id").
+		Values(m.TemplateID, m.ItemName, m.ExecOrder, m.RoleID).
+		ToSql()
+	err := s.db.Exec(sql, args...).Error
 	if err != nil {
 		return err
 	}
