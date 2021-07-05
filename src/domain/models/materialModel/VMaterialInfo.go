@@ -28,12 +28,12 @@ type VMaterialInfo struct {
 	SupplierName               string    `json:"supplier_name" gorm:"column:supplier_name"` // 不同工厂之间的供应商可能不同
 	SurplusPoint               string    `json:"surplus_point" gorm:"column:surplus_point"`
 	InstallQty                 string    `json:"install_qty" gorm:"column:install_qty"`
+	CreateAt                   time.Time `json:"create_at" gorm:"column:creat_at"`
 	ImportancyLevelID          int       `json:"importancy_level_id" gorm:"column:importancy_level_id"`
-	MaterialGroup              int       `json:"material_group_id" gorm:"column:material_group_id"`
+	MaterialGroupID            int       `json:"material_group_id" gorm:"column:material_group_id"`
 	RespInfo                   []int     `json:"resp_info" gorm:"-"`
 	PlantID                    int       `json:"plant_id" gorm:"column:plant_id"`
 	PlantTechCodeID            []int     `json:"plant_tech_code_id" gorm:"column:plant_tech_code"`
-	CreateAt                   time.Time `json:"create_at" gorm:"column:creat_at"`
 }
 
 func NewVMaterialInfo() *VMaterialInfo {
