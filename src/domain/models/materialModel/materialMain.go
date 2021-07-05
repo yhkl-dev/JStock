@@ -17,8 +17,7 @@ type MaterialModel struct {
 
 func New(attrs ...MaterialModelAttrFunc) *MaterialModel {
 	c := &MaterialModel{
-		// UserInfo: NewVUserInfo(),
-		// CreateAt: NewVUserCreatAt(),
+		MaterialInfo: NewVMaterialInfo(),
 	}
 	return c
 }
