@@ -19,6 +19,10 @@ func NewFrontWorkFlowItemTemplateAgg(m *workflowtemplate.WorkFlowItemTemplate, r
 	return fu
 }
 
-func (s *FrontWorkFlowItemTemplateAgg) CreateItem(user *workflowtemplate.WorkFlowItemTemplate) error {
+func (s *FrontWorkFlowItemTemplateAgg) CreateItem(m *workflowtemplate.WorkFlowItemTemplate) error {
 	return s.WorkFlowItemTemplateMain.New()
+}
+
+func (s *FrontWorkFlowItemTemplateAgg) UpdateItem(m *workflowtemplate.WorkFlowItemTemplate) error {
+	return s.WorkFlowItemTemplateMain.Load()
 }

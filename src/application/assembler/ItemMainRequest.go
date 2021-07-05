@@ -16,3 +16,13 @@ func (s *ItemMainRequest) D2M_ItemMain(dto *dto.ItemAddRequest) *workflowtemplat
 	return m
 }
 
+type ItemUpdateRequest struct{}
+
+func (s *ItemUpdateRequest) D2M_Item(dto *dto.ItemUpdateRequest) *workflowtemplate.WorkFlowItemTemplate {
+	m := workflowtemplate.NewWorkFlowItemTempate()
+	m.ID = dto.ID
+	m.RoleID = dto.RoleID
+	m.TemplateID = dto.TemplateID
+	m.ItemName = dto.ItemName
+	return m
+}

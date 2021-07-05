@@ -10,9 +10,11 @@ import (
 )
 
 type WorkFlowItemTemplateMainService struct {
-	AssItemAddReq *assembler.ItemMainRequest
-	AssItemAddRsp *assembler.ItemMainResponse
-	DB            *gorm.DB `inject:"-"`
+	AssItemAddReq    *assembler.ItemMainRequest
+	AssItemAddRsp    *assembler.ItemMainResponse
+	AssItemUpdateReq *assembler.ItemUpdateRequest
+	AssItemUpdateRsp *assembler.ItemUpdateResponse
+	DB               *gorm.DB `inject:"-"`
 }
 
 func (s *WorkFlowItemTemplateMainService) CreateWorkFlowItem(req *dto.ItemAddRequest) *dto.ItemAddResponse {
@@ -24,4 +26,15 @@ func (s *WorkFlowItemTemplateMainService) CreateWorkFlowItem(req *dto.ItemAddReq
 		panic(err.Error())
 	}
 	return s.AssItemAddRsp.D2M_ItemMainInfo(frontItem)
+}
+
+func (s *WorkFlowItemTemplateMainService) UpdateWorkFlowItem(req *dto.ItemUpdateRequest) *dto.ItemUpdateResponse {
+	m := s.AssItemUpdateReq.D2M_Item(req)
+	repo := GormDao.NewItemMainRepo(s.DB)
+	frontItem := frontworkflowtempate.NewFrontWorkFlowItemTemplateAgg(m, repo)
+	err := frontItem.UpdateItem(m)
+	if err != nil {
+		panic(err.Error())
+	}
+	return s.AssItemUpdateRsp.D2M_ItemInfo(frontItem)
 }

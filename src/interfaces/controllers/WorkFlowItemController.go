@@ -21,9 +21,14 @@ func (s *ItemTemplateMainController) CreateItem(ctx *gin.Context) goft.Json {
 	return s.ItemTemplateMainSvc.CreateWorkFlowItem(utils.Exec(ctx.ShouldBindJSON, &dto.ItemAddRequest{}).Unwrap().(*dto.ItemAddRequest))
 }
 
+func (s *ItemTemplateMainController) UpdateItem(ctx *gin.Context) goft.Json {
+	return s.ItemTemplateMainSvc.UpdateWorkFlowItem(utils.Exec(ctx.ShouldBindJSON, &dto.ItemUpdateRequest{}).Unwrap().(*dto.ItemUpdateRequest))
+}
+
 func (*ItemTemplateMainController) Name() string {
 	return "ItemTemplateMainController"
 }
 func (s *ItemTemplateMainController) Build(goft *goft.Goft) {
-	goft.Handle("POST", "/workflow/flowtemplate/item", s.CreateItem)
+	goft.Handle("POST", "/workflow/flowtemplate/item", s.CreateItem).
+		Handle("PUT", "/workflow/flowtemplate/item", s.UpdateItem)
 }

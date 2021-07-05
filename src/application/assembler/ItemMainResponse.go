@@ -15,3 +15,15 @@ func (s *ItemMainResponse) D2M_ItemMainInfo(uagg *frontworkflowtempate.FrontWork
 	r.TemplateName = uagg.WorkFlowItemTemplateMain.TemplateName
 	return r
 }
+
+type ItemUpdateResponse struct{}
+
+func (s *ItemUpdateResponse) D2M_ItemInfo(agg *frontworkflowtempate.FrontWorkFlowItemTemplateAgg) *dto.ItemUpdateResponse {
+	r := &dto.ItemUpdateResponse{}
+	r.ID = agg.WorkFlowItemTemplateMain.ID
+	r.ExecOrder = agg.WorkFlowItemTemplateMain.ExecOrder
+	r.RoleName = agg.WorkFlowItemTemplateMain.RoleName
+	r.ItemName = agg.WorkFlowItemTemplateMain.ItemName
+	r.TemplateName = agg.WorkFlowItemTemplateMain.TemplateName
+	return r
+}
