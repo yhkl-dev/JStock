@@ -45,6 +45,10 @@ func (s *WorkFlowTemplate) ListTemplate(flowName string, flowtype, page, pageSiz
 	return s.Repo.ListTemplate(flowName, flowtype, page, pageSize)
 }
 
+func (s *WorkFlowTemplate) Update() error {
+	return s.Repo.Update(s)
+}
+
 type WorkFlowItemTempateAttrFunc func(model *WorkFlowItemTemplate)
 type WorkFlowItemTempateAttrFuncs []WorkFlowItemTempateAttrFunc
 
@@ -65,7 +69,7 @@ type WorkFlowItemTemplate struct {
 	TemplateID   int                              `json:"tempalte_id" gorm:"template_id"`
 	TemplateName string                           `json:"template_name" gorm:"column:template_name"`
 	ItemName     string                           `json:"item_name" gorm:"column:item_name"`
-	ExecOrder    int                              `json:"exec_order" gorm:"column:exex_order"`
+	ExecOrder    int                              `json:"exec_order" gorm:"column:exec_order"`
 	RoleID       int                              `json:"role_id" gorm:"column:role_id"`
 	RoleName     string                           `json:"role_name" gorm:"column:role_name"`
 	Repo         repos.IWorkFlowItemTemplateModel `gorm:"-"`
@@ -87,4 +91,8 @@ func (s *WorkFlowItemTemplate) Load() error {
 
 func (s *WorkFlowItemTemplate) List(id int) (interface{}, error) {
 	return s.Repo.List(id)
+}
+
+func (s *WorkFlowItemTemplate) Update() error {
+	return s.Repo.Update(s)
 }

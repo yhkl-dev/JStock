@@ -25,10 +25,16 @@ func (s *WorkFlowTemplateMainController) ListWorkFlowTemplate(ctx *gin.Context) 
 	return s.FlowTemplateMainSvc.ListWorkFlowTemplate(utils.Exec(ctx.Bind, &dto.FlowTemplateListRequest{}).Unwrap().(*dto.FlowTemplateListRequest))
 }
 
+func (s *WorkFlowTemplateMainController) UpdateWorkFlowtemplate(ctx *gin.Context) goft.Json {
+	return s.FlowTemplateMainSvc.UpdateWorkFlowTemplate(utils.Exec(ctx.ShouldBindJSON, &dto.FlowTemplateUpdateRequest{}).Unwrap().(*dto.FlowTemplateUpdateRequest))
+}
+
 func (*WorkFlowTemplateMainController) Name() string {
 	return "WorkFlowTemplateMainController"
 }
 
 func (s *WorkFlowTemplateMainController) Build(goft *goft.Goft) {
-	goft.Handle("POST", "/workflow/flowtemplate", s.CreateFlow)
+	goft.Handle("POST", "/workflow/flowtemplate", s.CreateFlow).
+		Handle("GET", "/workflow/flowtemplate", s.ListWorkFlowTemplate).
+		Handle("PUT", "/workflow/flowtemplate", s.UpdateWorkFlowtemplate)
 }

@@ -21,5 +21,15 @@ func (s *FlowTemplateListRequest) D2M_FlowTemplateList(dto *dto.FlowTemplateList
 	m.FlowName = dto.FlowName
 	m.FlowType = dto.FlowType
 	return m
+}
 
+
+type FlowTemplateUpdateRequest struct{}
+
+func (s *FlowTemplateUpdateRequest) D2M_FlowTemplateMain(dto *dto.FlowTemplateUpdateRequest) *workflowtemplate.WorkFlowTemplate {
+	m := workflowtemplate.NewWorkFlowTemplate()
+	m.ID = dto.ID
+	m.FlowName = dto.FlowName
+	m.FlowType = dto.FlowType
+	return m
 }

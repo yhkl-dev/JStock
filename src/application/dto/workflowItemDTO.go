@@ -31,6 +31,7 @@ type (
 		RoleName     string `json:"role_name"`
 	}
 	ItemMainResponse struct {
+		ID           int    `json:"id"`
 		TemplateName string `json:"template_name"`
 		ItemName     string `json:"item_name"`
 		ExecOrder    int    `json:"exec_order"`

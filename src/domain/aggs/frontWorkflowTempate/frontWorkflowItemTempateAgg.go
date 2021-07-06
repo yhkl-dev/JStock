@@ -24,5 +24,5 @@ func (s *FrontWorkFlowItemTemplateAgg) CreateItem(m *workflowtemplate.WorkFlowIt
 }
 
 func (s *FrontWorkFlowItemTemplateAgg) UpdateItem(m *workflowtemplate.WorkFlowItemTemplate) error {
-	return s.WorkFlowItemTemplateMain.Load()
+	return s.WorkFlowItemTemplateMain.Update()
 }

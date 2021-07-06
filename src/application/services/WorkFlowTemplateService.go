@@ -15,6 +15,8 @@ type WorkFlowTemplateService struct {
 	AssFlowTemplateAddRsp  *assembler.FlowTemplateAddResponse
 	AssFlowTemplateListReq *assembler.FlowTemplateListRequest
 	AssFlowTemplateListRsp *assembler.FlowTemplateListResponse
+	AssFlowTemplateUpdateReq *assembler.FlowTemplateUpdateRequest
+	AssFlowTemplateUpdateRsp *assembler.FlowTemplateUpdateResponse
 	DB                     *gorm.DB `inject:"-"`
 }
 
@@ -24,7 +26,7 @@ func (s *WorkFlowTemplateService) CreateWorkFlowTemplate(req *dto.FlowTemplateAd
 	repo1 := GormDao.NewIFlowTemplateRepo(s.DB)
 	repo2 := GormDao.NewItemMainRepo(s.DB)
 	frontFlowTemplate := frontworkflowtempate.NewFrontWorkFlowTemplateAgg(flowTemplateModel, ItemModel, repo1, repo2)
-	err := frontFlowTemplate.CreateFlowTemplate(flowTemplateModel)
+	err := frontFlowTemplate.UpdateFlowTemplate(flowTemplateModel)
 	if err != nil {
 		panic(err.Error())
 	}
@@ -42,4 +44,17 @@ func (s *WorkFlowTemplateService) ListWorkFlowTemplate(req *dto.FlowTemplateList
 		panic(err.Error())
 	}
 	return s.AssFlowTemplateListRsp.D2M_FlowTemplateLIst(results)
+}
+
+func (s *WorkFlowTemplateService) UpdateWorkFlowTemplate(req *dto.FlowTemplateUpdateRequest) *dto.FlowMainResponse {
+	flowModel := s.AssFlowTemplateUpdateReq.D2M_FlowTemplateMain(req)
+	ItemModel := workflowtemplate.NewWorkFlowItemTempate()
+	repo1 := GormDao.NewIFlowTemplateRepo(s.DB)
+	repo2 := GormDao.NewItemMainRepo(s.DB)
+	frontFlowTemplate := frontworkflowtempate.NewFrontWorkFlowTemplateAgg(flowModel, ItemModel, repo1, repo2)
+	err := frontFlowTemplate.UpdateFlowTemplate(flowModel)
+	if err != nil {
+		panic(err.Error())
+	}
+	return s.AssFlowTemplateUpdateRsp.D2M_FlowTemplateInfo(frontFlowTemplate)
 }

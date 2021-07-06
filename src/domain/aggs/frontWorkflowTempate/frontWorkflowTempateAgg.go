@@ -43,6 +43,10 @@ func (s *FrontWorkFlowTemplateAgg) CreateFlowTemplate(m *workflowtemplate.WorkFl
 	return s.WorkFlowTempateMain.New()
 }
 
+func (s *FrontWorkFlowTemplateAgg) UpdateFlowTemplate(m *workflowtemplate.WorkFlowTemplate) error {
+	return s.WorkFlowTempateMain.Update()
+}
+
 func (s *FrontWorkFlowTemplateAgg) ListFlowTemplate(m *workflowtemplate.WorkFlowTemplate, page, pageSize int) (interface{}, error) {
 	results, err := s.WorkFlowTempateMain.ListTemplate(m.FlowName, m.FlowType, page, pageSize)
 	if err != nil {
@@ -52,7 +56,7 @@ func (s *FrontWorkFlowTemplateAgg) ListFlowTemplate(m *workflowtemplate.WorkFlow
 
 		res, err := s.WorkFlowItemTemplateMain.List(m.ID)
 		if err != nil {
-			return nil, Errors.NewNotFoundDataError("UserRoleMap", err.Error())
+			return nil, Errors.NewNotFoundDataError("WorkFlowItemTemplateMain", err.Error())
 		}
 		m.FlowItems = res
 	}

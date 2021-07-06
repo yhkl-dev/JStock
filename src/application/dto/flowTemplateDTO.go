@@ -5,6 +5,12 @@ type (
 		FlowName string `json:"flow_name"`
 		FlowType int    `json:"flow_type"`
 	}
+	FlowTemplateUpdateRequest struct {
+		ID       int    `json:"id"`
+		FlowName string `json:"flow_name"`
+		FlowType int    `json:"flow_type"`
+	}
+
 	FlowTemplateListRequest struct {
 		FlowName string `form:"flow_name"`
 		FlowType int    `form:"flow_type"`

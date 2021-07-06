@@ -24,5 +24,6 @@ func (s *ItemUpdateRequest) D2M_Item(dto *dto.ItemUpdateRequest) *workflowtempla
 	m.RoleID = dto.RoleID
 	m.TemplateID = dto.TemplateID
 	m.ItemName = dto.ItemName
+	m.ExecOrder = dto.ExecOrder
 	return m
 }

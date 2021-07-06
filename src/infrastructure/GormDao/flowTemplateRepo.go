@@ -27,10 +27,25 @@ func (s *FlowTemplateRepo) FindByID(model repos.IModel) error {
 }
 
 func (s *FlowTemplateRepo) ListTemplate(flowname string, flowType, page, pageSize int) (interface{}, error) {
-	var res = make([]*workflowtemplate.WorkFlowItemTemplate, 0)
-	err := s.db.Table("t_workflow_template").Find(&res).Error
+	var m = make([]*workflowtemplate.WorkFlowTemplate, 0)
+	s.db = s.db.Table("t_workflow_template")
+	if flowname != "" {
+		s.db = s.db.Where("flow_name = ?", flowname)
+	}
+	if flowType != 0 {
+		s.db = s.db.Where("flow_type = ?", flowType)
+	}
+	if pageSize == 0 {
+		pageSize = 10
+	}
+	err := s.db.Find(&m).Offset(page).Limit(pageSize).Error
 	if err != nil {
 		return nil, err
 	}
-	return res, nil
+	return m, nil
+}
+
+
+func (s *FlowTemplateRepo) Update(model repos.IModel) error {
+	return s.db.Table("t_workflow_template").Where("id = ? ", model.(*workflowtemplate.WorkFlowTemplate).ID).First(model).Error
 }
