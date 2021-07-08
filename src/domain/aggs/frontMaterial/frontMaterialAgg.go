@@ -11,7 +11,6 @@ type FrontMaterialAgg struct {
 	MaterialMainRepo repos.IMaterialMainModel
 }
 
-
 func NewFrontMaterialAgg(material *materialmodel.MaterialModel, repo repos.IMaterialMainModel) *FrontMaterialAgg {
 	if material == nil {
 		panic("Error Root MaterialMain")
@@ -20,7 +19,6 @@ func NewFrontMaterialAgg(material *materialmodel.MaterialModel, repo repos.IMate
 	f.MaterialMain.Repo = repo
 	return f
 }
-
 
 func (s *FrontMaterialAgg) QueryDetail() error {
 	if s.MaterialMain.ID <= 0 {
@@ -33,10 +31,10 @@ func (s *FrontMaterialAgg) QueryDetail() error {
 	return nil
 }
 
-// func (s *FrontMaterialAgg) QueryRoleList(roleMain *materialmodel.MaterialModel, page int, pageSize int) (interface{}, error) {
-// 	return s.MaterialMain.List(roleMain.RoleInfo.RoleName, roleMain.RoleInfo.ParentRoleID, page, pageSize)
-// }
-
-func (s *FrontMaterialAgg) CreateRole(m *materialmodel.MaterialModel) error {
+func (s *FrontMaterialAgg) CreateMaterial(m *materialmodel.MaterialModel) error {
 	return s.MaterialMain.New()
+}
+
+func (s *FrontMaterialAgg) QueryMaterialList(m *materialmodel.MaterialModel, page, pageSize int) (interface{}, error) {
+	return s.MaterialMain.QueryMaterialList(m, page, pageSize)
 }

@@ -2,7 +2,6 @@ package dto
 
 type (
 	MaterialAddRequest struct {
-		// MaterialNumber string `json:"material_number"`
 		ImportancyLevelID          int    `json:"importancy_level_id" `
 		MaterialGroupID            int    `json:"material_group_id" `
 		RespInfo                   []int  `json:"resp_info" `
@@ -34,10 +33,25 @@ type (
 		SurplusPoint               string `json:"surplus_point" `
 		InstallQty                 string `json:"install_qty" `
 	}
+	MatertialListRequest struct {
+		ID                    int    `form:"id"`
+		MaterialNumber        string `form:"material_number"`
+		MaterialDescriptionEN string `form:"material_description_en"`
+		MaterialDescriptionZH string `form:"material_description_zh"`
+		HandoverType          string `form:"handover_type"`
+		PlantID               int    `form:"plant_id"`
+		PlantTechCodeID       int    `form:"plant_tech_code_id"`
+		ImportancyLevelID     int    `form:"importancy_level_id"`
+		MaterialGroupID       int    `form:"material_group_id"`
+		Page                  int    `form:"page"`
+		PageSize              int    `form:"page_size"`
+	}
 )
 
 type (
 	MaterialMainResponse struct {
+		Id                         int         `json:"id"`
+		MaterialNumber             string      `json:"material_number"`
 		ImportancyLevelID          int         `json:"importancy_level_id" `
 		ImportancyLevelName        string      `json:"importancy_level_name"`
 		MaterialGroupID            int         `json:"material_group_id" `
@@ -72,4 +86,6 @@ type (
 		SurplusPoint               string      `json:"surplus_point" `
 		InstallQty                 string      `json:"install_qty" `
 	}
+
+	MaterialListResponse []MaterialMainResponse
 )

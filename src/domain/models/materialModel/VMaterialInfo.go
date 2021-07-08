@@ -30,9 +30,12 @@ type VMaterialInfo struct {
 	InstallQty                 string    `json:"install_qty" gorm:"column:install_qty"`
 	CreateAt                   time.Time `json:"create_at" gorm:"column:creat_at"`
 	ImportancyLevelID          int       `json:"importancy_level_id" gorm:"column:importancy_level_id"`
+	ImportancyLevelName        string    `json:"importancy_level_name" gorm:"column:importancy_level_name"`
 	MaterialGroupID            int       `json:"material_group_id" gorm:"column:material_group_id"`
+	MaterialGroupName          string    `json:"material_group_name" gorm:"column:material_group_name"`
 	RespInfo                   []int     `json:"resp_info" gorm:"-"`
 	PlantID                    int       `json:"plant_id" gorm:"column:plant_id"`
+	PlatnName                  string    `json:"plant_name" gorm:"column:plant_name"`
 	PlantTechCodeID            []int     `json:"plant_tech_code_id" gorm:"column:plant_tech_code"`
 }
 

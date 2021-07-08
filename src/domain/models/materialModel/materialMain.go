@@ -14,7 +14,7 @@ func (s MaterialModelAttrFuncs) apply(u *MaterialModel) {
 type MaterialModel struct {
 	ID             int                      `json:"id" gorm:"column:id"`
 	MaterialNumber string                   `json:"material_number" gorm:"column:material_number"`
-	MaterialInfo   *VMaterialInfo           `json:"material_info" gorm:"embedded"`
+	MaterialInfo   *VMaterialInfo           `gorm:"embedded"`
 	Repo           repos.IMaterialMainModel `gorm:"-"`
 }
 
@@ -32,6 +32,10 @@ func (s *MaterialModel) Load() error {
 
 func (s *MaterialModel) New() error {
 	return s.Repo.New(s)
+}
+
+func (s *MaterialModel) QueryMaterialList(m repos.IModel, page, pageSize int) (interface{}, error) {
+	return s.Repo.QueryMaterialList(m, page, pageSize)
 }
 
 func (*MaterialModel) Name() string {

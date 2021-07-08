@@ -19,14 +19,13 @@ func (s *TokenCheck) OnRequest(ctx *gin.Context) error {
 		return nil
 	}
 	token := ctx.Request.Header.Get("authoritaion")
+	if token == "" {
+		goft.Throw("Unauthorized", 503, ctx)
+	}
 	j := utils.NewJWT()
 	_, err := j.ResolveToken(token)
 	if err != nil {
 		goft.Throw("authorized error", 503, ctx)
-	}
-
-	if token == "" {
-		goft.Throw("Unauthorized", 503, ctx)
 	}
 	return nil
 }

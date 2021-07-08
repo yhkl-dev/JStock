@@ -1,6 +1,7 @@
 package main
 
 import (
+	"JStock/src/infrastructure/midwares/corsmid"
 	"JStock/src/infrastructure/midwares/jwtauth"
 	"JStock/src/interfaces/configs"
 	"JStock/src/interfaces/controllers"
@@ -9,16 +10,20 @@ import (
 )
 
 func main() {
-	goft.Ignite().Attach(jwtauth.NewTokenCheck()).
+	goft.Ignite(corsmid.Cors()).
+		Attach(jwtauth.NewTokenCheck()).
 		Config(configs.NewDBConfig(),
-			configs.NewUserMainServiceConfig(),
+			configs.NewUserMainServiceConfig(), 
 			configs.NewRoleMainServiceConfig(),
 			configs.NewUserRoleMapServiceConfig(),
 			configs.NewFlowItemTemplateServiceConfig(),
+			configs.NewMaterialMainServiceConfig(),
 			configs.NewFlowTemplateServiceConfig()).
-		Mount("v1", controllers.NewUserMainControllerr(),
+		Mount("v1", 
+			controllers.NewUserMainControllerr(),	
 			controllers.NewItemTemplateMainController(),
 			controllers.NewWorkFlowTemplateMainController(),
-			controllers.NewRoleMainController()).
+			controllers.NewRoleMainController(), 
+			controllers.NewMaterialController()).
 		Launch()
 }
