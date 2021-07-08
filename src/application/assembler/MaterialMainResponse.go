@@ -53,7 +53,39 @@ func (s *MaterialListResponse) D2M_MaterialList(agg interface{}) *dto.MaterialLi
 		mInfo := &dto.MaterialMainResponse{}
 		mInfo.Id = m.ID
 		mInfo.MaterialNumber = m.MaterialNumber
+		mInfo.ImportancyLevelID = m.MaterialInfo.ImportancyLevelID
+		mInfo.ImportancyLevelName = m.MaterialInfo.ImportancyLevelName
+		mInfo.MaterialGroupID = m.MaterialInfo.MaterialGroupID
+		mInfo.MaterialGroupName = m.MaterialInfo.MaterialGroupName
+		mInfo.RespInfo = m.MaterialInfo.RespInfo
+		mInfo.PlantID = m.MaterialInfo.PlantID
+		mInfo.PlatnName = m.MaterialInfo.PlatnName
+		mInfo.HandoverType = m.MaterialInfo.HandoverType
+		mInfo.MaterialDescriptionEN = m.MaterialInfo.MaterialDescriptionEN
+		mInfo.MaterialDescriptionZH = m.MaterialInfo.MaterialDescriptionZH
+		mInfo.ManufacturerName = m.MaterialInfo.ManufacturerName
+		mInfo.ManufacturerPartNumber = m.MaterialInfo.ManufacturerPartNumber
+		mInfo.ManufacturerModel = m.MaterialInfo.ManufacturerModel
+		mInfo.Unit = m.MaterialInfo.Unit
+		mInfo.Calibration = m.MaterialInfo.Calibration
+		mInfo.Repairable = m.MaterialInfo.Repairable
+		mInfo.Material = m.MaterialInfo.Material
 		mInfo.CCCorCCCRelated = m.MaterialInfo.CCCorCCCRelated
+		mInfo.PositionNumber = m.MaterialInfo.PositionNumber
+		mInfo.MaterialMainClassification = m.MaterialInfo.MaterialMainClassification
+		mInfo.MaterialSubClassification = m.MaterialInfo.MaterialSubClassification
+		mInfo.ManufactureModelOld1 = m.MaterialInfo.ManufactureModelOld1
+		mInfo.ManufactureModelOld2 = m.MaterialInfo.ManufactureModelOld2
+		mInfo.ManufacturePNOld1 = m.MaterialInfo.ManufacturePNOld1
+		mInfo.ManufacturePNOld2 = m.MaterialInfo.ManufacturePNOld2
+		mInfo.Dimension = m.MaterialInfo.Dimension
+		mInfo.MaterialSpecialTreatment = m.MaterialInfo.MaterialSpecialTreatment
+		mInfo.MPRemark = m.MaterialInfo.MPRemark
+		mInfo.TechRemark = m.MaterialInfo.TechRemark
+		mInfo.SupplierName = m.MaterialInfo.SupplierName
+		mInfo.SurplusPoint = m.MaterialInfo.SurplusPoint
+		mInfo.InstallQty = m.MaterialInfo.InstallQty
+
 		materialList = append(materialList, *mInfo)
 	}
 	return &materialList

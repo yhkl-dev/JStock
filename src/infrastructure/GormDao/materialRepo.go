@@ -63,7 +63,7 @@ func (s *MaterialRepo) QueryMaterialList(model repos.IModel, page, pageSize int)
 			tm.surplus_point,
 			tm.install_qty,
 			tm.plant_id,
-			tmg.group_name plant_name`).
+			tp.plant_name plant_name`).
 		From(`
 			t_material tm,
 			t_material_group tmg ,
@@ -95,6 +95,9 @@ func (s *MaterialRepo) QueryMaterialList(model repos.IModel, page, pageSize int)
 	}
 	if pageSize == 0 {
 		pageSize = 10
+	}
+	if page <= 0 {
+		page = 0
 	}
 	sql, args, _ := sqlObj.Offset(uint64(page)).Limit(uint64(pageSize)).ToSql()
 	fmt.Println(sql)
