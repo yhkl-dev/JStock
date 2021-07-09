@@ -39,13 +39,13 @@ func (s *UserMainController) Login(ctx *gin.Context) goft.Json {
 }
 
 func (s *UserMainController) Logout(ctx *gin.Context) goft.Json {
-	token := ctx.Request.Header.Get("authoritaion")
-	err := utils.NewJWT().DeleteToken(token)
-	if err != nil {
-		return map[string]interface{}{
-			"result": err.Error(),
-		}
-	}
+	// token := ctx.Request.Header.Get("authoritaion")
+	// err := utils.NewJWT().DeleteToken(token)
+	// if err != nil {
+	// 	return map[string]interface{}{
+	// 		"result": err.Error(),
+	// 	}
+	// }
 	return map[string]interface{}{
 		"result": "logout success",
 	}

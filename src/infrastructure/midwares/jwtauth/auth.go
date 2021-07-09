@@ -25,7 +25,7 @@ func (s *TokenCheck) OnRequest(ctx *gin.Context) error {
 	j := utils.NewJWT()
 	_, err := j.ResolveToken(token)
 	if err != nil {
-		goft.Throw("authorized error", 503, ctx)
+		goft.Throw("authorized error", 200, ctx)
 	}
 	return nil
 }

@@ -13,17 +13,18 @@ func main() {
 	goft.Ignite(corsmid.Cors()).
 		Attach(jwtauth.NewTokenCheck()).
 		Config(configs.NewDBConfig(),
-			configs.NewUserMainServiceConfig(), 
+			configs.NewUserMainServiceConfig(),
 			configs.NewRoleMainServiceConfig(),
 			configs.NewUserRoleMapServiceConfig(),
 			configs.NewFlowItemTemplateServiceConfig(),
 			configs.NewMaterialMainServiceConfig(),
+			configs.NewPlantMainServiceConfig(),
 			configs.NewFlowTemplateServiceConfig()).
-		Mount("v1", 
-			controllers.NewUserMainControllerr(),	
+		Mount("v1",
+			controllers.NewUserMainControllerr(),
 			controllers.NewItemTemplateMainController(),
 			controllers.NewWorkFlowTemplateMainController(),
-			controllers.NewRoleMainController(), 
+			controllers.NewRoleMainController(),
 			controllers.NewMaterialController()).
 		Launch()
 }

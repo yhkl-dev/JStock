@@ -11,3 +11,9 @@ type IPlantModel interface {
 	Load(IModel) error
 	QueryPlantList(m IModel, page int, pageSize int) (interface{}, error)
 }
+
+type IMaterialGroupModel interface {
+	New(IModel) error
+	Load(IModel) error
+	QueryMaterialGroupList(m IModel, page int, pageSize int) (interface{}, error)
+}

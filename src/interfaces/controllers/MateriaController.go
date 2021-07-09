@@ -10,8 +10,9 @@ import (
 )
 
 type MaterialController struct {
-	MaterialService *services.MaterialService `inject:"-"`
-	PlantService *services.PlantService 	`inject:"-"`
+	MaterialService      *services.MaterialService     `inject:"-"`
+	PlantService         *services.PlantService        `inject:"-"`
+	MaterialGroupService *services.MaterialGroupSerice `inject:"-"`
 }
 
 func NewMaterialController() *MaterialController {
@@ -31,6 +32,10 @@ func (s *MaterialController) CreatePlant(ctx *gin.Context) goft.Json {
 }
 
 func (s *MaterialController) ListPlant(ctx *gin.Context) goft.Json {
+	return s.PlantService.ListPlant(utils.Exec(ctx.Bind, &dto.PlantListRequest{}).Unwrap().(*dto.PlantListRequest))
+}
+
+func (s *MaterialController) ListMaterialGroup(ctx *gin.Context) goft.Json {
 	return s.PlantService.ListPlant(utils.Exec(ctx.Bind, &dto.PlantListRequest{}).Unwrap().(*dto.PlantListRequest))
 }
 

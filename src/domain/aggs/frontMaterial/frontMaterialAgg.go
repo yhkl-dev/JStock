@@ -7,19 +7,27 @@ import (
 )
 
 type FrontMaterialAgg struct {
-	MaterialMain     *materialmodel.MaterialModel
-	PlantModelMain *materialmodel.PlantModel
-	MaterialMainRepo repos.IMaterialMainModel
-	PlantModelMainRepo repos.IPlantModel
+	MaterialMain          *materialmodel.MaterialModel
+	PlantModelMain        *materialmodel.PlantModel
+	MaterialGroupMain     *materialmodel.MaterialGroup
+	MaterialMainRepo      repos.IMaterialMainModel
+	MaterialGroupMainRepo repos.IMaterialGroupModel
+	PlantModelMainRepo    repos.IPlantModel
 }
 
-func NewFrontMaterialAgg(material *materialmodel.MaterialModel, repo repos.IMaterialMainModel, plant *materialmodel.PlantModel, repo2 repos.IPlantModel) *FrontMaterialAgg {
+func NewFrontMaterialAgg(material *materialmodel.MaterialModel,
+	repo repos.IMaterialMainModel,
+	plant *materialmodel.PlantModel,
+	repo2 repos.IPlantModel,
+	materialGroup *materialmodel.MaterialGroup,
+	repo3 repos.IMaterialGroupModel) *FrontMaterialAgg {
 	if material == nil {
 		panic("Error Root MaterialMain")
 	}
-	f := &FrontMaterialAgg{MaterialMain: material, PlantModelMain: plant, MaterialMainRepo: repo, PlantModelMainRepo: repo2 }
+	f := &FrontMaterialAgg{MaterialMain: material, PlantModelMain: plant, MaterialMainRepo: repo, PlantModelMainRepo: repo2, MaterialGroupMain: materialGroup, MaterialGroupMainRepo: repo3}
 	f.MaterialMain.Repo = repo
 	f.PlantModelMain.Repo = repo2
+	f.MaterialGroupMain.Repo = repo3
 	return f
 }
 
@@ -47,5 +55,5 @@ func (s *FrontMaterialAgg) CreatePlant(m *materialmodel.PlantModel) error {
 }
 
 func (s FrontMaterialAgg) QueryPlantList(m *materialmodel.PlantModel, page, pageSize int) (interface{}, error) {
-	return s.PlantModelMain.Repo.QueryPlantList(m, page, pageSize)
+	return s.PlantModelMain.QueryPlantList(m, page, pageSize)
 }

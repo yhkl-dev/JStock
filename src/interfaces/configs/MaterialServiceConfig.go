@@ -15,5 +15,7 @@ func (s *MaterialMainServiceConfig) MaterialMainService() *services.MaterialServ
 	return &services.MaterialService{
 		AssMaterialMainReq: &assembler.MaterialMainRequest{},
 		AssMaterialMainRsp: &assembler.MaterialMainResponse{},
+		AssMaterialListReq: &assembler.MaterialListRequest{},
+		AssMaterialListRsp: &assembler.MaterialListResponse{},
 	}
 }
