@@ -5,3 +5,9 @@ type IMaterialMainModel interface {
 	Load(IModel) error
 	QueryMaterialList(m IModel, page int, pageSize int) (interface{}, error)
 }
+
+type IPlantModel interface {
+	New(IModel) error
+	Load(IModel) error
+	QueryPlantList(m IModel, page int, pageSize int) (interface{}, error)
+}

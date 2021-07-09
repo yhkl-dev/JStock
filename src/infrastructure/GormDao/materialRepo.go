@@ -3,7 +3,6 @@ package GormDao
 import (
 	materialmodel "JStock/src/domain/models/materialModel"
 	"JStock/src/domain/models/repos"
-	"fmt"
 
 	"github.com/Masterminds/squirrel"
 	"gorm.io/gorm"
@@ -27,8 +26,6 @@ func (s *MaterialRepo) Load(model repos.IModel) error {
 
 func (s *MaterialRepo) QueryMaterialList(model repos.IModel, page, pageSize int) (interface{}, error) {
 	m := model.(*materialmodel.MaterialModel)
-	fmt.Println("MaterialNumber", m.MaterialNumber)
-	// var res = make([]*materialmodel.MaterialModel, 0)
 	res := []*materialmodel.MaterialModel{}
 	sqlObj := squirrel.Select(`
 			tm.id,
@@ -100,7 +97,6 @@ func (s *MaterialRepo) QueryMaterialList(model repos.IModel, page, pageSize int)
 		page = 0
 	}
 	sql, args, _ := sqlObj.Offset(uint64(page)).Limit(uint64(pageSize)).ToSql()
-	fmt.Println(sql)
 	err := s.db.Raw(sql, args...).Scan(&res).Error
 	if err != nil {
 		return nil, err
