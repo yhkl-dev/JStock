@@ -3,7 +3,6 @@ package assembler
 import (
 	"JStock/src/application/dto"
 	materialmodel "JStock/src/domain/models/materialModel"
-	"fmt"
 	"time"
 )
 
@@ -21,10 +20,17 @@ func (s *PlantAddRequest) D2M_PlantModel(dto *dto.PlantAddRequest) *materialmode
 type PlantListRequest struct{}
 
 func (s *PlantListRequest) D2M_PlantModel(dto *dto.PlantListRequest) *materialmodel.PlantModel {
-	fmt.Println("xxxxxxxxx", dto.PlantCode)
 	m := materialmodel.NewPlantModel()
-
 	m.PlantName = dto.PlantName
 	m.PlantCode = dto.PlantCode
+	return m
+}
+
+type PlantTechCodeListRequest struct{}
+
+func (s *PlantTechCodeListRequest) D2M_PlantTechCodeModel(dto *dto.PlantTechCodeListRequest) *materialmodel.PlantTenchModel {
+	m := materialmodel.NewPlantTenchModel()
+	m.PlantTechCode = dto.PlantTechCode
+	m.PlantID = dto.PlantID
 	return m
 }

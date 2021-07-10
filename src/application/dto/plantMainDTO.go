@@ -13,6 +13,12 @@ type (
 		Page      int    `form:"page"`
 		PageSize  int    `form:"page_size"`
 	}
+	PlantTechCodeListRequest struct {
+		PlantID       int    `form:"plant_id"`
+		PlantTechCode string `form:"plant_tech_code"`
+		Page          int    `form:"page"`
+		PageSize      int    `form:"page_size"`
+	}
 )
 
 type (
@@ -24,4 +30,14 @@ type (
 		CreateAt  string `json:"create_at" `
 	}
 	PlantListResponse []PlantMainResponse
+
+	PlantTechCodeMainResponse struct {
+		ID                int    `json:"id" `
+		PlantID           int    `json:"plant_id" `
+		PlantTechCodeName string `json:"plant_tech_code_name" `
+		PlantTechCode     string `json:"plant_tech_code" `
+		Comment           string `json:"comment" `
+		CreateAt          string `json:"create_at" `
+	}
+	PlantTechCodeListResponse []PlantTechCodeMainResponse
 )

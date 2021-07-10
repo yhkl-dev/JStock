@@ -38,6 +38,10 @@ func (s *MaterialModel) QueryMaterialList(m repos.IModel, page, pageSize int) (i
 	return s.Repo.QueryMaterialList(m, page, pageSize)
 }
 
+func (s *MaterialModel) QueryImportancyLevelList() (interface{}, error) {
+	return s.Repo.QueryImportancyLevelList()
+}
+
 func (*MaterialModel) Name() string {
 	return "MaterialModel"
 }

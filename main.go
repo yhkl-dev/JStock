@@ -19,6 +19,7 @@ func main() {
 			configs.NewFlowItemTemplateServiceConfig(),
 			configs.NewMaterialMainServiceConfig(),
 			configs.NewPlantMainServiceConfig(),
+			configs.NewMaterialGroupnServiceConfig(),
 			configs.NewFlowTemplateServiceConfig()).
 		Mount("v1",
 			controllers.NewUserMainControllerr(),

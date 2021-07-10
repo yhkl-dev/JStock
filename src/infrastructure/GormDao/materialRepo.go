@@ -24,6 +24,12 @@ func (s *MaterialRepo) Load(model repos.IModel) error {
 	return s.db.Table("t_material").Where("id = ?", model.(*materialmodel.MaterialModel).ID).First(model).Error
 }
 
+func (s *MaterialRepo) QueryImportancyLevelList() (interface{}, error) {
+	res := []*materialmodel.ImportancyLevel{}
+	err := s.db.Table("t_importancy_level").Find(&res).Error
+	return res, err
+}
+
 func (s *MaterialRepo) QueryMaterialList(model repos.IModel, page, pageSize int) (interface{}, error) {
 	m := model.(*materialmodel.MaterialModel)
 	res := []*materialmodel.MaterialModel{}
@@ -71,6 +77,9 @@ func (s *MaterialRepo) QueryMaterialList(model repos.IModel, page, pageSize int)
 			and tm.plant_id = tp.id`)
 	if m.ID != 0 {
 		sqlObj = sqlObj.Where("tm.id = ?", m.ID)
+	}
+	if m.MaterialInfo.MaterialGroupID != 0 {
+		sqlObj = sqlObj.Where("tm.material_group_id = ?", m.MaterialInfo.MaterialGroupID)
 	}
 	if m.MaterialNumber != "" {
 		sqlObj = sqlObj.Where("tm.material_number = ?", m.MaterialNumber)
