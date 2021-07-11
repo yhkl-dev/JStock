@@ -28,6 +28,7 @@ func (s *MaterialService) CreateMaterial(req *dto.MaterialAddRequest) *dto.Mater
 	materialGroup := materialmodel.NewMaterialGroup()
 	plant := materialmodel.NewPlantModel()
 	plantTech := materialmodel.NewPlantTenchModel()
+
 	repo := GormDao.NewMaterialRepo(s.DB)
 	repo2 := GormDao.NewPlantMainRepo(s.DB)
 	repo3 := GormDao.NewMaterialGroupRepo(s.DB)

@@ -3,11 +3,11 @@ package changemodel
 import "time"
 
 type ChangeForm struct {
-	ID int `json:"id"`
-	Source *NetWorkChangeModel `gorm:""`
-	Destination *NetWorkChangeModel  `gorm:""`
-	Purpose string `json:"purpose"`
-	Status  int `json:"status"`
+	ID          int                 `json:"id"`
+	Source      *NetWorkChangeModel `gorm:""`
+	Destination *NetWorkChangeModel `gorm:""`
+	Purpose     string              `json:"purpose"`
+	Status      int                 `json:"status"`
 }
 
 type NetWorkChangeModel struct {
@@ -23,11 +23,11 @@ type NetWorkChangeModel struct {
 }
 
 type CloudRoom struct {
-	ID       int    `json:"id"`
-	RoomName string `json:"room_name"`
+	ID          int    `json:"id"`
+	RoomName    string `json:"room_name"`
 	CloudRoomID string `json:"cloud_root_id"`
-	Owner string `json:"owner"`
-	CreateAt string `json:"creat_at"`
+	Owner       string `json:"owner"`
+	CreateAt    string `json:"create_at"`
 }
 
 type ResourceTypeID struct {
@@ -36,17 +36,16 @@ type ResourceTypeID struct {
 	TypeComment string `json:"type_comment"`
 }
 
-
 type MainModel struct {
-	ID int `json:"id"`
-	Sender string `json:"sender"`
-	CC string `json:"cc"`
+	ID       int    `json:"id"`
+	Sender   string `json:"sender"`
+	CC       string `json:"cc"`
 	Receiver string `json:"receiver"`
-	Content string `json:"content"`
+	Content  string `json:"content"`
 }
 
 type MainContentTemplate struct {
-	ID int `json:"id"`
-	ContentTemplate string `json:"content_tmeplate"`
-	CreatAt time.Time `json:"create_at"`
+	ID              int       `json:"id"`
+	ContentTemplate string    `json:"content_tmeplate"`
+	CreatAt         time.Time `json:"create_at"`
 }

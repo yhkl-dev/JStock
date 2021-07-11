@@ -2,6 +2,7 @@ package assembler
 
 import (
 	"JStock/src/application/dto"
+	"time"
 
 	materialmodel "JStock/src/domain/models/materialModel"
 )
@@ -40,6 +41,7 @@ func (s *MaterialMainRequest) D2M_MaterialMain(dto *dto.MaterialAddRequest) *mat
 	m.MaterialInfo.SupplierName = dto.SupplierName
 	m.MaterialInfo.SurplusPoint = dto.SurplusPoint
 	m.MaterialInfo.InstallQty = dto.InstallQty
+	m.MaterialInfo.CreateAt = time.Now()
 	return m
 }
 

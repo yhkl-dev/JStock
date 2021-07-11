@@ -4,7 +4,7 @@ type (
 	MaterialAddRequest struct {
 		ImportancyLevelID          int    `json:"importancy_level_id" `
 		MaterialGroupID            int    `json:"material_group_id" `
-		RespInfo                   []int  `json:"resp_info" `
+		RespInfo                   []int  `json:"resp_info"`
 		PlantID                    int    `json:"plant_id" `
 		PlantTechCodeID            []int  `json:"plant_tech_code_id" `
 		HandoverType               string `json:"handover_type" `
@@ -85,6 +85,7 @@ type (
 		SupplierName               string      `json:"supplier_name" `
 		SurplusPoint               string      `json:"surplus_point" `
 		InstallQty                 string      `json:"install_qty" `
+		CreateAt                   string      `json:"create_at"`
 	}
 
 	MaterialListResponse []MaterialMainResponse

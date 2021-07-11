@@ -85,7 +85,7 @@ func (s *MaterialListResponse) D2M_MaterialList(agg interface{}) *dto.MaterialLi
 		mInfo.SupplierName = m.MaterialInfo.SupplierName
 		mInfo.SurplusPoint = m.MaterialInfo.SurplusPoint
 		mInfo.InstallQty = m.MaterialInfo.InstallQty
-
+		mInfo.CreateAt = m.MaterialInfo.CreateAt.Format("2006-01-02 15:04:05")
 		materialList = append(materialList, *mInfo)
 	}
 	return &materialList

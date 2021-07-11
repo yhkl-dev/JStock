@@ -28,7 +28,7 @@ type VMaterialInfo struct {
 	SupplierName               string    `json:"supplier_name" gorm:"column:supplier_name"` // 不同工厂之间的供应商可能不同
 	SurplusPoint               string    `json:"surplus_point" gorm:"column:surplus_point"`
 	InstallQty                 string    `json:"install_qty" gorm:"column:install_qty"`
-	CreateAt                   time.Time `json:"create_at" gorm:"column:creat_at"`
+	CreateAt                   time.Time `json:"create_at" gorm:"column:create_at"`
 	ImportancyLevelID          int       `json:"importancy_level_id" gorm:"column:importancy_level_id"`
 	ImportancyLevelName        string    `json:"importancy_level_name" gorm:"column:importancy_level_name"`
 	MaterialGroupID            int       `json:"material_group_id" gorm:"column:material_group_id"`

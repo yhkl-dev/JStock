@@ -28,7 +28,7 @@ func (s *MaterialController) ListMaterial(ctx *gin.Context) goft.Json {
 }
 
 func (s *MaterialController) CreatePlant(ctx *gin.Context) goft.Json {
-	return s.PlantService.CreatePlant(utils.Exec(ctx.ShouldBind, &dto.PlantAddRequest{}).Unwrap().(*dto.PlantAddRequest))
+	return s.PlantService.CreatePlant(utils.Exec(ctx.ShouldBindJSON, &dto.PlantAddRequest{}).Unwrap().(*dto.PlantAddRequest))
 }
 
 func (s *MaterialController) ListPlant(ctx *gin.Context) goft.Json {

@@ -9,6 +9,7 @@ require (
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/gin-gonic/gin v1.6.3
 	github.com/jinzhu/gorm v1.9.15
+	github.com/satori/go.uuid v1.2.0
 	github.com/shenyisyn/goft-gin v0.5.1
 	gorm.io/driver/mysql v1.1.1
 	gorm.io/gorm v1.21.11

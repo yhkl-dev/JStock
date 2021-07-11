@@ -3,6 +3,8 @@ package GormDao
 import (
 	materialmodel "JStock/src/domain/models/materialModel"
 	"JStock/src/domain/models/repos"
+	"JStock/src/interfaces/utils"
+	"time"
 
 	"github.com/Masterminds/squirrel"
 	"gorm.io/gorm"
@@ -17,7 +19,99 @@ func NewMaterialRepo(db *gorm.DB) *MaterialRepo {
 }
 
 func (s *MaterialRepo) New(model repos.IModel) error {
-	return s.db.Table("t_material").Create(model).Error
+
+	m := model.(*materialmodel.MaterialModel)
+	m.MaterialNumber = utils.GenerateMaterialID()
+
+	sql, args, _ := squirrel.Insert("t_material").Columns(
+		"material_number",
+		"importancy_level_id",
+		"material_group_id",
+		"plant_id",
+		"handover_type",
+		"material_description_en",
+		"material_description_zh",
+		"manufacturer_name",
+		"manufacturer_part_number",
+		"manufacturer_model",
+		"unit",
+		"calibration",
+		"repairable",
+		"material",
+		"ccc_or_ccc_related",
+		"position_number",
+		"material_main_classification",
+		"material_sub_classification",
+		"manufacture_model_old1",
+		"manufacture_model_old2",
+		"manufacture_pn_old1",
+		"manufacture_pn_old2",
+		"dimension",
+		"material_special_treatment",
+		"mpr_remark",
+		"tech_remark",
+		"supplier_name",
+		"surplus_point",
+		"install_qty",
+		"create_at").
+		Values(m.MaterialNumber,
+			m.MaterialInfo.ImportancyLevelID,
+			m.MaterialInfo.MaterialGroupID,
+			m.MaterialInfo.PlantID,
+			m.MaterialInfo.HandoverType,
+			m.MaterialInfo.MaterialDescriptionEN,
+			m.MaterialInfo.MaterialDescriptionZH,
+			m.MaterialInfo.ManufacturerName,
+			m.MaterialInfo.ManufacturerPartNumber,
+			m.MaterialInfo.ManufacturerModel,
+			m.MaterialInfo.Unit,
+			m.MaterialInfo.Calibration,
+			m.MaterialInfo.Repairable,
+			m.MaterialInfo.Material,
+			m.MaterialInfo.CCCorCCCRelated,
+			m.MaterialInfo.PositionNumber,
+			m.MaterialInfo.MaterialMainClassification,
+			m.MaterialInfo.MaterialSubClassification,
+			m.MaterialInfo.ManufactureModelOld1,
+			m.MaterialInfo.ManufactureModelOld2,
+			m.MaterialInfo.ManufacturePNOld1,
+			m.MaterialInfo.ManufacturePNOld2,
+			m.MaterialInfo.Dimension,
+			m.MaterialInfo.MaterialSpecialTreatment,
+			m.MaterialInfo.MPRemark,
+			m.MaterialInfo.TechRemark,
+			m.MaterialInfo.SupplierName,
+			m.MaterialInfo.SurplusPoint,
+			m.MaterialInfo.InstallQty,
+			time.Now(),
+		).ToSql()
+
+	err := s.db.Exec(sql, args...).Error
+	if err != nil {
+		return err
+	}
+
+	for _, user := range m.MaterialInfo.RespInfo {
+		insert_user_sql, args, _ :=
+			squirrel.Insert("t_material_user_mapping").
+				Columns("material_id", "user_id").
+				Values(m.ID, user).
+				ToSql()
+		if err := s.db.Exec(insert_user_sql, args...).Error; err != nil {
+			return err
+		}
+	}
+	for _, techCode := range m.MaterialInfo.PlantTechCodeID {
+		insert_tech_sql, args, _ := squirrel.
+			Insert("t_material_plant_tech_code_mapping").
+			Columns("material_id", "plant_tech_code_id").
+			Values(m.ID, techCode).
+			ToSql()
+		if err := s.db.Exec(insert_tech_sql, args...).Error; err != nil {
+			return err
+		}
+	}
+	return nil
 }
 
 func (s *MaterialRepo) Load(model repos.IModel) error {
